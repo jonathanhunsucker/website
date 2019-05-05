@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    <title>Variable functions are stupid and fun – Jonathan Hunsucker</title>
+
+    <meta name="author" content="Jonathan Hunsucker" />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Jonathan Hunsucker" href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Jonathan Hunsucker</a></h1>
+          </div>
+          
+          <nav>
+            <a href="/about">About</a>
+            <a href="https://github.com/jonathanhunsucker">GitHub</a>
+            <a href="https://instagram.com/jonathanhunsucker">Instagram</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="date">March 23, 2015</div>
+  <h1>Variable functions are stupid and fun</h1>
+  <div class="entry"><h4 id="preface">Preface</h4>
+<p>PHP was my first scripting language. For better or worse, it’s been my most comfortable language since 2008 (7 years ago at time of writting). As a result, it’s influenced how I write in other languages.</p>
+
+<h3 id="variable-variableness-by-example">Variable variableness by example</h3>
+<p>In PHP, there’s dedicated syntax for calling class methods by name. Here’s a trivial example:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php">class Dog {
+    public function bark() {
+        print "Woof!\n";
+    }
+    public function sit() {
+        print "Cool\n";
+    }
+}
+
+$dog = new Dog();
+$commands = array('bark', 'sit');
+
+foreach ($commands as $command) {
+    $dog-&gt;{$command}();
+}</code></pre></figure>
+
+<p>In Python, the syntax isn’t on hand, but <code class="highlighter-rouge">getattr</code> can act similarly.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">bark</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">"Woof!</span><span class="se">\n</span><span class="s">"</span>
+
+    <span class="k">def</span> <span class="nf">sit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">"Cool</span><span class="se">\n</span><span class="s">"</span>
+
+<span class="n">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
+<span class="n">commands</span> <span class="o">=</span> <span class="p">[</span><span class="s">'bark'</span><span class="p">,</span> <span class="s">'sit'</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
+    <span class="nb">getattr</span><span class="p">(</span><span class="n">dog</span><span class="p">,</span> <span class="n">command</span><span class="p">)()</span></code></pre></figure>
+
+<p>In Javascript, I don’t know of a name for it. It seems like a natural product of how the language works.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">Dog</span><span class="p">()</span> <span class="p">{}</span>
+<span class="nx">Dog</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bark</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Woof!'</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">Dog</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sit</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Cool'</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">dog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dog</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">commands</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'bark'</span><span class="p">,</span> <span class="s1">'sit'</span><span class="p">];</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">commands</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">command</span> <span class="o">=</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="nx">dog</span><span class="p">[</span><span class="nx">command</span><span class="p">]();</span>
+<span class="p">}</span></code></pre></figure>
+
+<h4 id="stupid">Stupid</h4>
+<p>A lot of trust is required here. The methods have to exist, and static code analysis often won’t detect when they don’t. A misspelling kills the program.</p>
+
+<h4 id="fun">Fun</h4>
+<p>The alternative is checking for possible command, then invoking the appropriate method. When the number of commands becomes very large, a big switch or lots of if/elseifs becomes cumbersome.</p>
+
+<h3 id="becoming-smart-and-boring">Becoming smart and boring</h3>
+<p>Reeling in the danger is pretty simple: check for errors. In the case of PHP and Javascript, add checks before invoking the method. In Python, <code class="highlighter-rouge">getattr</code> throws an <code class="highlighter-rouge">AttributeError</code> when the attribute doesn’t exist. Handle the exceptional case with a safe default, an error page, or safe self destruction.</p>
+
+<h4 id="an-example-from-mancala">An example from Mancala</h4>
+<p>I used this dynamic invocation trick on <a href="https://github.com/jonathantrevorh/mancala/">Mancala</a>, a service for playing the board game via SMS. Game play consisted of texting a command, like <code class="highlighter-rouge">start</code>, the letter for the position you want to play, or <code class="highlighter-rouge">reset</code> to quit. If <code class="highlighter-rouge">getattr</code> threw up, then the service simply replied ‘Invalid move’ and quit.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">try</span><span class="p">:</span>
+    <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">)()</span>
+<span class="k">except</span> <span class="nb">AttributeError</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">"Invalid move"</span></code></pre></figure>
+
+</div>
+</article>
+
+    </div>
+
+    <div class="container">
+      <footer class="footer">
+        <span>All Rights Reserved &copy; 2019 Jonathan Hunsucker</span>
+      </footer>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		
+		ga('create', 'UA-10136968-8', 'auto');
+		ga('send', 'pageview');
+	</script>
+	<!-- End Google Analytics -->
+
+
+  </body>
+</html>

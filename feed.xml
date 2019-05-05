@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jonathan Hunsucker</title>
+    <link>http://localhost:4000</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>solving snake puzzle</title>
+        <description>&lt;p&gt;The snake puzzle consists of 27 blocks, held together by an elastic string threaded through holes in each of the blocks. Some blocks have a straight hole connecting one side to the opposite. Some blocks have holes connecting one side to an adjacent side, creating a bend. The challenge of the puzzle, is to orient the blocks so that they form a cube, three blocks tall.&lt;/p&gt;
+
+&lt;h4 id=&quot;finding-an-approach&quot;&gt;Finding an approach&lt;/h4&gt;
+&lt;p&gt;After many hours toying around with it, I began to adopt a simple approach:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Fold the puzzle one segment at time (a segment being a run of straight-hole blocks)&lt;/li&gt;
+  &lt;li&gt;If a segment causes the solved portion of the puzzle to run outside of a 3x3x3 cube, unfold and try again&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;After many more hours, I realized that my approach could be codified into a program, to simulate the puzzle and find a solution faster than one could by hand.&lt;/p&gt;
+
+&lt;h4 id=&quot;finding-a-suitable-notation&quot;&gt;Finding a suitable notation&lt;/h4&gt;
+&lt;p&gt;The puzzle’s configuration can be encoded as a list of segment lengths. For example, the puzzle I have on hand, is encoded like so:&lt;/p&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;new Puzzle([3, 2, 2, 3, 2, 3, 2, 2, 3, 3, 2, 2, 2, 3, 3, 3, 3]);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;All together, the list sums to 27, so &lt;code class=&quot;highlighter-rouge&quot;&gt;Puzzle&lt;/code&gt; determines the goal is three-block-tall cube.&lt;/p&gt;
+
+&lt;p&gt;Many notations exist, though some are easier to work with than others. For example, a list of 27 values, one for each block, would also suffice. So might a 3D model of the puzzle.&lt;/p&gt;
+
+&lt;h4 id=&quot;defining-the-solution&quot;&gt;Defining the solution&lt;/h4&gt;
+&lt;p&gt;My puzzle had 17 segments. With four possible turns available at every segment connection, there are 16&lt;sup&gt;4&lt;/sup&gt; = 65,536 possible arrangements, ignoring that a block can’t physically occupy the same space. Part of defining the solution is defining what is not the solution. Immediately, a few criteria for non-solutions stand out:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Incomplete - Not all segments used, the puzzle has one or more segments unaccounted for&lt;/li&gt;
+  &lt;li&gt;Overflows - Width, length, or height is greater than three&lt;/li&gt;
+  &lt;li&gt;Overlaps - Physically not possible, turning back on itself, two blocks in same space&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$turns_so_far = [];
+$unstarted_puzzle = new Solution($puzzle, $turns_so_far)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Every solution has to start somewhere. For the chosen notation, a &lt;code class=&quot;highlighter-rouge&quot;&gt;Solution&lt;/code&gt; also captures in-progress work. It’s tightly coupled to &lt;code class=&quot;highlighter-rouge&quot;&gt;Cube&lt;/code&gt;, which translates &lt;code class=&quot;highlighter-rouge&quot;&gt;Solution&lt;/code&gt;’s turn-by-turn instructions into a list of discrete three-dimensional positions the blocks occupy. &lt;code class=&quot;highlighter-rouge&quot;&gt;Cube&lt;/code&gt; also ensures the solution avoids breaking the overlaps and overflows criteria, via its &lt;code class=&quot;highlighter-rouge&quot;&gt;isValid()&lt;/code&gt; function. The incomplete criteria is enforced via a separate &lt;code class=&quot;highlighter-rouge&quot;&gt;Solution-&amp;gt;isComplete()&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;h4 id=&quot;scaffolding-a-search&quot;&gt;Scaffolding a search&lt;/h4&gt;
+&lt;p&gt;With a notation and solution space defined, the search begins. Similar to notations, there’s many suitable approaches to searching. The first to mind are breadth-first and depth-first.&lt;/p&gt;
+
+&lt;h4 id=&quot;hastening-the-search&quot;&gt;Hastening the search&lt;/h4&gt;
+&lt;p&gt;TBA&lt;/p&gt;
+
+&lt;h4 id=&quot;deeper-understanding-of-the-puzzle&quot;&gt;Deeper understanding of the puzzle&lt;/h4&gt;
+&lt;p&gt;With an automatic solver in hand, the puzzle can be characterized and understood deeper.&lt;/p&gt;
+
+&lt;h5 id=&quot;how-many-solutions-for-this-configuration&quot;&gt;How many solutions for this configuration?&lt;/h5&gt;
+&lt;p&gt;TBA&lt;/p&gt;
+
+&lt;h5 id=&quot;how-many-solvable-3-tall-configurations&quot;&gt;How many solvable 3-tall configurations?&lt;/h5&gt;
+&lt;p&gt;Same question as “how many traversals of a 3-tall cube exist?”. Begs questions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Which traversals are consider the “same”? Does this change the quantity?&lt;/li&gt;
+  &lt;li&gt;Can we grade configurations on their difficulty?&lt;/li&gt;
+  &lt;li&gt;How many solvable 2-tall configurations? 4-tall?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;TBA&lt;/p&gt;
+
+&lt;h4 id=&quot;summary&quot;&gt;Summary&lt;/h4&gt;
+&lt;p&gt;TBA&lt;/p&gt;
+
+&lt;h5 id=&quot;notes-to-self-while-authoring-this&quot;&gt;Notes to self while authoring this&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;Why didn’t I calculate out 16&lt;sup&gt;4&lt;/sup&gt; from the beginning? I would have potentially taken a different approach, had I known the solution space was relatively small.&lt;/li&gt;
+  &lt;li&gt;How much of the solution is invalided by each criteria mentioned? Are their space-minimization worth their computational cost-savings? Is it possible, that adding more criteria, counterintuitively, slows the search down, since every candidate must be be checked, but maybe only a few candidates are invalidated?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All code can be found &lt;a href=&quot;https://github.com/jonathanhunsucker/cube-puzzle&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 18 Apr 2019 22:08:43 -0400</pubDate>
+        <link>http://localhost:4000/blog/2019/04/18/solving-snake-puzzle/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2019/04/18/solving-snake-puzzle/</guid>
+      </item>
+    
+      <item>
+        <title>Utility of Scatter Plots</title>
+        <description>&lt;p&gt;Choosing one option is difficult when options widely vary on many different axes. Scatter plots can help in approaching a decision, as a quick tool for comparing options.&lt;/p&gt;
+
+&lt;h4 id=&quot;why-is-it-useful&quot;&gt;Why is it useful?&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Choosing qualities is easier than choosing an option&lt;/li&gt;
+  &lt;li&gt;Engages visual understanding, eg. clusters indicate options’ similarity&lt;/li&gt;
+  &lt;li&gt;Expresses what you’d otherwise describe verbosely&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;steps&quot;&gt;Steps&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Start with a handful of options, these will be the points&lt;/li&gt;
+  &lt;li&gt;List at least two qualities you can measure these options against&lt;/li&gt;
+  &lt;li&gt;Pick one quality to be the horizontal axis&lt;/li&gt;
+  &lt;li&gt;Order the options relative to one another&lt;/li&gt;
+  &lt;li&gt;Pick another quality for the vertical axis, and rank the options relatively again&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;examples&quot;&gt;Examples&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Transportation modes, cost and time&lt;/li&gt;
+  &lt;li&gt;What to build next, effort and value&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 09 Apr 2019 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/blog/2019/04/09/scatter-plots/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2019/04/09/scatter-plots/</guid>
+      </item>
+    
+      <item>
+        <title>The Fire Next Time</title>
+        <description>&lt;p&gt;James Baldwin’s 1962 book is damn good. Two portions stood out to me.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;To defend oneself against a fear is simply to insure that one will, one day, be conquered by it; fears must be faced. As for one’s wits, it is just not true that one can live by them — not, that is, if one really wishes to live.&lt;br /&gt;
+Page 27&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Part of his argument is that the American dream is fragile and false because it goes unexamined. If it were examined, we’d realize that not everyone is free and equal, and the dream would collapse, taking any assumptions and ego built atop, along with it.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;White Americans find it as difficult as white people elsewhere do to divest themselves of the notion that they are in possession of some intrinsic value that black people need, or want.&lt;br /&gt;
+Page 94&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;My primary take-away from Baldwin’s book is that equality is not achieved through the mindset that a privileged group is “lifting up” or “granting access” to the a privileged grup. Equality is, instead, achieved by recognizing and embracing that boths groups are the same, thereby realizing there’s no basis for the disparate privilege.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 09 Jan 2019 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/blog/2019/01/09/fire-next-time/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2019/01/09/fire-next-time/</guid>
+      </item>
+    
+      <item>
+        <title>How to Solve It: Progress and achievement</title>
+        <description>&lt;p&gt;&lt;em&gt;How to Solve It&lt;/em&gt; by G. Polya was published in 1945, providing a breakdown of the problem solving process and  handy tools for each subprocess. It’s divided into four sections, one of which is a “short dictionary of heuristic” for solving problems. One of these heuristic definitions stood out to me, “Progress and achievement” page 157, because it put in words the tactics I find myself using without having enumerated them before. I share them here, as a reminder for myself, and reference to pass along for others.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;The feeling of making progress towards a solution drives me to continue. Though, working hard and seeing no tangible ground covered erodes my will to keep at it. Therefore problem solving skills shouldn’t be left to haphazard intuition alone, but instead, studied in order to gain a well-honed tool.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;The problem solving process is broken into stages, with no distinct delineation. Nevertheless, each subprocess is worth naming, so as to better understand the whole.&lt;/p&gt;
+
+&lt;h5 id=&quot;glossary&quot;&gt;Glossary&lt;/h5&gt;
+&lt;p&gt;Bringing up from memory relevant information (eg. related problems, or similar unknowns) is called &lt;em&gt;mobilization&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Second stage is the combination of isolated facts, constructing a cohesive concept from mobilized knowledge. This is deemed &lt;em&gt;organization&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;These are two aspects of the same thing: progress of work.&lt;/p&gt;
+
+&lt;p&gt;Another aspect of progress is changes in our &lt;em&gt;mode of conception&lt;/em&gt;. Varying the problem, facts, mobilized knowledge, trying out various viewpoints, or organized concepts, is progress in itself.&lt;/p&gt;
+
+&lt;p&gt;Yet another aspect is &lt;em&gt;precepting&lt;/em&gt; the next steps which bring you closer to a solution. The more accurate the precepts, the more progress has been made, the closer in the spiral towards an answer you are.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Polya provides questions to further each stage.&lt;/p&gt;
+
+&lt;h5 id=&quot;aiding-questions&quot;&gt;Aiding Questions&lt;/h5&gt;
+&lt;p&gt;Questions which aid mobilization:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Have you seen it before? Or have you seen the same problem in a slightly different form?&lt;/li&gt;
+  &lt;li&gt;Do you know a related problem?&lt;/li&gt;
+  &lt;li&gt;Do you know a theorem that could be useful?&lt;/li&gt;
+  &lt;li&gt;Look at the unknown! And try to think of a familiar problem having the same/similar problem.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Questions which aid organization:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Here is a related problem to yours and solved before. Could you use it? Could you use its method? Could you use its result?&lt;/li&gt;
+  &lt;li&gt;Should you introduce some auxiliary element in order to make its use possible?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To gather more material:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Did you use all the data?&lt;/li&gt;
+  &lt;li&gt;Did you use the whole condition?&lt;/li&gt;
+  &lt;li&gt;Have you taken into account all essential notions involved in the problem?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To vary the problem:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Could you restate the problem?&lt;/li&gt;
+  &lt;li&gt;Could you state it still differently?&lt;/li&gt;
+  &lt;li&gt;Could you redefine the principle terms?&lt;/li&gt;
+  &lt;li&gt;Is there an analogy to be drawn?&lt;/li&gt;
+  &lt;li&gt;Can you generalize the problem?&lt;/li&gt;
+  &lt;li&gt;Can you specialize the problem?&lt;/li&gt;
+  &lt;li&gt;How can you decompose and recombine it?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To suggest preceptions about the solution’s nature:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Is it possible to satisfy the condition?&lt;/li&gt;
+  &lt;li&gt;Is the condition sufficient to determine the unknown? Or it is insufficient? Redundant? Contradictory?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;When framing a problem, think hard about how a person might answer these questions. Does your problem statement usher them towards a solution? If not, go back and restate the problem.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 07 Aug 2018 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/blog/2018/08/07/how-to-solve-it-progress-and-achievement/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2018/08/07/how-to-solve-it-progress-and-achievement/</guid>
+      </item>
+    
+      <item>
+        <title>Tim Keane on being intentional</title>
+        <description>&lt;p&gt;&lt;a href=&quot;https://twitter.com/TimKeaneATL&quot;&gt;Tim Keane&lt;/a&gt; is the Commissioner of City Planning for the City of Atlanta. He gave a talk on being intentional at &lt;a href=&quot;https://creativemornings.com/cities/atl&quot;&gt;Creative Mornings ATL&lt;/a&gt; on Friday, July 27th, 2018. Here’s my notes. They lack a cohesive point, but nonetheless are interesting because Keane’s ideas for how city should be planned, are new for Atlantans. Quotations are paraphrased.&lt;/p&gt;
+
+&lt;p&gt;He’s trying to find new ways to do this work. There were times when cities were designed. Chicago used to be a backwater slaughterhouse, until Burnham and Bennett came along with their &lt;a href=&quot;https://en.wikipedia.org/wiki/Burnham_Plan_of_Chicago&quot;&gt;1909 Plan of Chicago&lt;/a&gt;. Other designed cities include Savannah and Philadelphia. Contrast this with Charleston, a city build one person’s building at a time. Boston also lacked a master plan.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Atlanta’s peculiar, in that we have no shortage of plans — if you consider a list of things no one would disagree with to be “a plan”.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Over the last 35 years, the population of Atlanta and its regional area has grown from 2.3m to 6.2m. The region has experienced over 300% population growth, while the city has shrunk by 15%. Looking ahead to the next 25 years, the city and region is expected to experience another 2.5m in population growth (equivalent to adding a Charlotte-worth of population). Keane would like for the city to experience a quarter of that total growth, bringing city population from 420k to over a million, because he believes most things get better with more people.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Census Year&lt;/th&gt;
+      &lt;th&gt;City Poplation&lt;/th&gt;
+      &lt;th&gt;Region Population&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1970&lt;/td&gt;
+      &lt;td&gt;496,973&lt;/td&gt;
+      &lt;td&gt;1,763,626&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1980&lt;/td&gt;
+      &lt;td&gt;425,022&lt;/td&gt;
+      &lt;td&gt;2,233,324&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1990&lt;/td&gt;
+      &lt;td&gt;394,017&lt;/td&gt;
+      &lt;td&gt;2,959,950&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;416,474&lt;/td&gt;
+      &lt;td&gt;4,112,198&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;420,003&lt;/td&gt;
+      &lt;td&gt;5,729,304&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Demographics of Atlanta, Wikipedia, &lt;a href=&quot;https://en.wikipedia.org/wiki/Demographics_of_Atlanta&quot;&gt;source&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To achieve this, he and the City Planning department has put forth &lt;a href=&quot;atlcitydesign.com&quot;&gt;atlcitydesign.com&lt;/a&gt;, a guiding document for the city. It’s purpose is to articulate and inspire Atlantans to fall in love with their city, and make better decisions for its future. The proposal is situated on top of Dr. King’s &lt;a href=&quot;http://www.thekingcenter.org/king-philosophy#sub4&quot;&gt;Beloved Community&lt;/a&gt; concept.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The driving idea is to design cities for:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;people&lt;/li&gt;
+    &lt;li&gt;nature&lt;/li&gt;
+    &lt;li&gt;people in nature&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The hope is that this will distinguish Atlanta from other American cities.&lt;/p&gt;
+
+&lt;p&gt;When Keane arrived, he make some initial observations:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;The skyline behaves as an oriented device.&lt;/li&gt;
+  &lt;li&gt;We must shake off the notion that change is optional. It’s not a choice of nothing and something. It’s a choice of something and someone else. Change is inevitable.&lt;/li&gt;
+  &lt;li&gt;Broad St was closed to cars, but still had cars on it. Cars still dominated the landscape, even in places where they’ve been technically banned.&lt;/li&gt;
+  &lt;li&gt;“In Atlanta, you can do anything”&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The question that guides his work is: What is this place and how can we make it better if we’re intentional?&lt;/p&gt;
+
+&lt;p&gt;Broadly, Atlanta is composed of two areas:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Core areas, such as midtown and downtown&lt;/li&gt;
+  &lt;li&gt;Preservation areas, such a neighborhoods&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More broadly, a city is its streets. When you visit a city, the bulk of your experience is its streets.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Streets like Monroe Drive, Hollowell Parkway, and Dekalb Avenue “will change, in favor of the neighbors they’re in”.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We’re in a global competition for relevance, and our best step forward is in the streets. Sacrifices will need to be made, in order to acheive changes in your streets. For example, we will likely sacrifice mobility of cars. “If you’re concerned about your commute, you have two options: new mode of transportation, or move to a new place”. This will act as a forcing function, bringing people into the city.&lt;/p&gt;
+
+&lt;p&gt;A tangible example of the required change, has been two changes to the permissing process for Atlanta. One, rebuilds the permitting experience around the customer. Builders have stricter requirements, than single-family residences. Two, removes permitting requirements for some things, like kitchen cabinets.&lt;/p&gt;
+
+&lt;p&gt;Keane’s closing statement was that “you don’t figure out the Alabama defence, you just keep working at it. That’s just like city planning”.&lt;/p&gt;
+
+&lt;p&gt;The floor was opened for questions, and this one stood out to me.&lt;/p&gt;
+
+&lt;p&gt;Q: How do we exclude highways from our designs, &lt;em&gt;without&lt;/em&gt; burning them?&lt;/p&gt;
+
+&lt;p&gt;A: We’re not going get rid of the downtown connection any time soon. But there are other exemplars of bad highway design, which might be easier to tackle, such Langford Parkway. Langford cuts a neighbor in half, and provides little infrastructure benefits, as compared to I-20 which runs parallel, just two miles north. That could be a good place to strt new ideas for this design.&lt;/p&gt;
+
+&lt;p&gt;Somehow, the Beltline was brought up, and Keane encouraged us to “move beyond the beltline”, rhetorically asking how to extend the new perception, that the Beltline caused, to the larger metropolitan area. The Beltline changed the “Oh, we can’t be as nice as SF or Paris” perception. It has been indispensable from that perspective, but we also need to think beyond it.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 27 Jul 2018 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/blog/2018/07/27/tim-keane-on-being-intentional/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2018/07/27/tim-keane-on-being-intentional/</guid>
+      </item>
+    
+      <item>
+        <title>Boomclap: A Sampler/Sequencer using Web Audio API</title>
+        <description>&lt;p&gt;&lt;a href=&quot;/boomclap/&quot;&gt;Boomclap&lt;/a&gt; is a sampler and sequencer built using the Web Audio API. It’s very crude. The next beat is scheduled with &lt;code class=&quot;highlighter-rouge&quot;&gt;setTimeout&lt;/code&gt;, and the Web Audio API Node graph is built on every beat. It’s a fun toy to play around with.&lt;/p&gt;
+
+&lt;h6 id=&quot;sampling-interface&quot;&gt;Sampling interface&lt;/h6&gt;
+&lt;p&gt;&lt;img src=&quot;/images/boomclap-sampler.gif&quot; alt=&quot;Sampling interface&quot; /&gt;
+The window shows the last few seconds of microphone audio. Freeze the window, crop the sample, and save it to the sequencer.&lt;/p&gt;
+
+&lt;h6 id=&quot;sequencing-interface&quot;&gt;Sequencing interface&lt;/h6&gt;
+&lt;p&gt;&lt;img src=&quot;/images/boomclap-sequencer.gif&quot; alt=&quot;Sequencing interface&quot; /&gt;
+The sequencing grid has a row for each sample, and a column for each 16th beat in one bar. Clicking a cell plays the corresponding sample on that beat.&lt;/p&gt;
+
+&lt;h6 id=&quot;sample-editing&quot;&gt;Sample editing&lt;/h6&gt;
+&lt;p&gt;&lt;img src=&quot;/images/boomclap-sample-editor.gif&quot; alt=&quot;Sample editing interface&quot; /&gt;
+Clicking a sample, opens the editor interface. Slide to configure pitch, gain, and filter cut off. Each change re-plays the sample. Optionally, delete, play, or duplicate the sample.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 25 Nov 2017 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/blog/2017/11/25/boomclap-sampler-sequencer-using-web-audio-api/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2017/11/25/boomclap-sampler-sequencer-using-web-audio-api/</guid>
+      </item>
+    
+      <item>
+        <title>Flip: A Spacial Puzzle</title>
+        <description>&lt;p&gt;&lt;a href=&quot;/flip-game/&quot;&gt;Flip&lt;/a&gt; is a puzzle game created by a friend of mine, and brought to life during a hackathon. The goal is to fill the board, which is a grid of cells. Each cell is filled, highlighted, or unfilled. Game play starts with one cell filled. Take a turn, by highlighting filled cells and flipping them over their side — filling more cells. Fill the board in few enough turns, to complete that level. Its written in Angular v1.2, and its entry point is the router, declared in &lt;a href=&quot;https://github.com/jonathanhunsucker/flip-game/blob/master/js/app.js&quot;&gt;js/app.js&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 24 Nov 2017 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/blog/2017/11/24/flip-puzzle-game/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2017/11/24/flip-puzzle-game/</guid>
+      </item>
+    
+      <item>
+        <title>Tool for Auditing JavaScript Events</title>
+        <description>&lt;p&gt;&lt;a href=&quot;http://jonathanhunsucker.github.io/audit-events&quot;&gt;Audit Events&lt;/a&gt; is a tool which attaches event listeners to a button, records, the events, and outputs them into a table. It demonstrates the difference in event timing, with and without &lt;code class=&quot;highlighter-rouge&quot;&gt;user-scalable=no&lt;/code&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 22 Nov 2017 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/blog/2017/11/22/audit-events-tool/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2017/11/22/audit-events-tool/</guid>
+      </item>
+    
+      <item>
+        <title>Spring 2015 Post-mortem</title>
+        <description>&lt;h4 id=&quot;preface&quot;&gt;Preface&lt;/h4&gt;
+&lt;p&gt;I attend Georgia Tech as an undergrad computer science student. This is a post about the courses I took this semester. It was not my best semester, so this is for me to reflect and others to hopefully learn from it.&lt;/p&gt;
+
+&lt;h3 id=&quot;classes&quot;&gt;Classes&lt;/h3&gt;
+&lt;p&gt;I will be taking each class on it own, but here is quick list: CS3251 Networking I, CS3630 Intro Perception &amp;amp; Robotics, CS4641 Machine Learning, MATH3215 Prob &amp;amp; Stat, and PSYC2220 Industrial Organizational Psychology. Each is worth 3 credit hours.&lt;/p&gt;
+
+&lt;h4 id=&quot;cs3251-networking-i&quot;&gt;CS3251 Networking I&lt;/h4&gt;
+&lt;p&gt;This is a requirement for the networking concentration of my degree. It focused on the high-level implementation of networks, starting from an explanation of the layering to implementation of a reliable transport protocol on UDP. I believe it is the first semester they explained each layer from the application first downwards, instead of physical layer first upwards.&lt;/p&gt;
+
+&lt;p&gt;I appreciated this because the it initially made the idea of implementation more palatable, allowing assumptions
+like reliability be made. Then as the semester went on, it dived into into the more gory details. The second and last programming project (worth 13.3% of the grade) was implementing made-up reliable transport protocol on top of UDP. It needed to handle bit errors, dropped packets, delayed packets, and duplicate packets (these network issues were simulated with a provided man-in-the-middle tool).&lt;/p&gt;
+
+&lt;p&gt;To do well, go to lecture and takes notes in whatever way you find closest represents how you will think about the topics. If that means bullets, go for it. For me, that meant hand-written notes with drawings and tables. Finally, read the assignments as soon as they are released, and break down the requirements. When taking notes, you will know what to focus on or highlight for later reference.&lt;/p&gt;
+
+&lt;h4 id=&quot;cs3630-intro-perception--robotics&quot;&gt;CS3630 Intro Perception &amp;amp; Robotics&lt;/h4&gt;
+&lt;p&gt;Another degree requirement, but for the Intelligence thread. The grade is broken down into 7-8 weekly in-class ~6 question quizzes, and 5-7 homeworks, which will progress from “make the robot move” to “have the robot navigate itself”. Quiz material is directly from the slides, which are posted online. Lecture is worthwhile if only for the real-world examples of the course material.&lt;/p&gt;
+
+&lt;p&gt;Success on the quizzes can be found by reviewing slides after the class, and highlighting the equations and vocabulary. Understand what the vocabulary is, and if there are pros and cons to a method, be able to compare and contrast them. Success on the project means starting early and proving to yourself the project is feasible in a given amount of time, and then allotting 50% more. At least for my group, our strength was not Matlab, which the first few assignments were in.&lt;/p&gt;
+
+&lt;h4 id=&quot;cs4641-machine-learning&quot;&gt;CS4641 Machine Learning&lt;/h4&gt;
+&lt;p&gt;This course was exceptionally more essay-oriented than I had ever imagined. This threw me for a loop, and meant my usual method of learning (futzing around with an algorithm or implementing) was not happening. It was easy to hear a familiar word (ex. “decision trees”) and zone out, ignoring the depth of the lecture which I was not familiar with.&lt;/p&gt;
+
+&lt;p&gt;Success in this class means going to lecture and at least gathering the high points. There are online lectures which I highly success watching at 1.5x speed prior to going to class lecture. They cover the basics and will give a good foundation on which to learn the material from class lecture. Also, look at the syllabus for recommended toolboxes. You should not be writing much code. Everything has already been done for you, so use what is available and focus on understanding why the
+algorithms perform the ways they do.&lt;/p&gt;
+
+&lt;h4 id=&quot;math3215-prob--stat&quot;&gt;MATH3215 Prob &amp;amp; Stat&lt;/h4&gt;
+&lt;p&gt;A very straight-forward course. Homework was optional, so the grade was composed of two midterms worth 25% each, and a final worth 50%. This is very high-stakes, but the material is very palatable and doing the homework will let you prove or disprove your comfort with the topics. Visualizing what a probability means, or how a statistic is made will return many-fold in your understanding of it. As such, do not just memorize equations for their symbols, but understand what the
+composition means as a whole.&lt;/p&gt;
+
+&lt;h4 id=&quot;psyc2220-industrial-organizational-psychology&quot;&gt;PSYC2220 Industrial Organizational Psychology&lt;/h4&gt;
+&lt;p&gt;This was my one free elective this semester. I took it because I wanted to better understand the workplace from the perspective of human resource people and managers. Up until Fall 2014, I was fortunately to have been working full- or part-time since I coming to college, so I had a bevy of experience on the employee side of the workplace. Learning the whys of engineering a workplace would let me be better employee in the future.&lt;/p&gt;
+
+&lt;p&gt;From an academic standpoint, the professor accurately laid out how grades would be distributed: C for low to medium effort, minimal understanding, B for medium to strong understanding, and A for exceptional grasp of the material. I spent a lot of time in the beginning of the semester reading the book. I suggest reading the sldies first to gather the important parts, then reading the book to piece together a denser network of the information. It will help reinforce the topics.&lt;/p&gt;
+
+&lt;p&gt;The ~10 quizzes are a good indicator of what you gather from the lecture. The 6 assignments are good for demonstrating your knowledge. I suggest doing them as each topic passes and going to the TA to double check that you will get a good grade. I did not do this, and I was frustrated at putting so much effort and having 20% of the grade come back poorly.&lt;/p&gt;
+
+&lt;h3 id=&quot;in-summary&quot;&gt;In Summary&lt;/h3&gt;
+&lt;p&gt;Despite this being my third year, there are still things that I can do better in school.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 03 May 2015 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/blog/2015/05/03/spring-2015-post-mortem/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2015/05/03/spring-2015-post-mortem/</guid>
+      </item>
+    
+      <item>
+        <title>Variable functions are stupid and fun</title>
+        <description>&lt;h4 id=&quot;preface&quot;&gt;Preface&lt;/h4&gt;
+&lt;p&gt;PHP was my first scripting language. For better or worse, it’s been my most comfortable language since 2008 (7 years ago at time of writting). As a result, it’s influenced how I write in other languages.&lt;/p&gt;
+
+&lt;h3 id=&quot;variable-variableness-by-example&quot;&gt;Variable variableness by example&lt;/h3&gt;
+&lt;p&gt;In PHP, there’s dedicated syntax for calling class methods by name. Here’s a trivial example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;class Dog {
+    public function bark() {
+        print &quot;Woof!\n&quot;;
+    }
+    public function sit() {
+        print &quot;Cool\n&quot;;
+    }
+}
+
+$dog = new Dog();
+$commands = array('bark', 'sit');
+
+foreach ($commands as $command) {
+    $dog-&amp;gt;{$command}();
+}&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In Python, the syntax isn’t on hand, but &lt;code class=&quot;highlighter-rouge&quot;&gt;getattr&lt;/code&gt; can act similarly.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;bark&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Woof!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Cool&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;dog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;commands&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bark'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'sit'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;getattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In Javascript, I don’t know of a name for it. It seems like a natural product of how the language works.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Dog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Dog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bark&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Woof!'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Dog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Cool'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Dog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;commands&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'bark'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'sit'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;dog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;stupid&quot;&gt;Stupid&lt;/h4&gt;
+&lt;p&gt;A lot of trust is required here. The methods have to exist, and static code analysis often won’t detect when they don’t. A misspelling kills the program.&lt;/p&gt;
+
+&lt;h4 id=&quot;fun&quot;&gt;Fun&lt;/h4&gt;
+&lt;p&gt;The alternative is checking for possible command, then invoking the appropriate method. When the number of commands becomes very large, a big switch or lots of if/elseifs becomes cumbersome.&lt;/p&gt;
+
+&lt;h3 id=&quot;becoming-smart-and-boring&quot;&gt;Becoming smart and boring&lt;/h3&gt;
+&lt;p&gt;Reeling in the danger is pretty simple: check for errors. In the case of PHP and Javascript, add checks before invoking the method. In Python, &lt;code class=&quot;highlighter-rouge&quot;&gt;getattr&lt;/code&gt; throws an &lt;code class=&quot;highlighter-rouge&quot;&gt;AttributeError&lt;/code&gt; when the attribute doesn’t exist. Handle the exceptional case with a safe default, an error page, or safe self destruction.&lt;/p&gt;
+
+&lt;h4 id=&quot;an-example-from-mancala&quot;&gt;An example from Mancala&lt;/h4&gt;
+&lt;p&gt;I used this dynamic invocation trick on &lt;a href=&quot;https://github.com/jonathantrevorh/mancala/&quot;&gt;Mancala&lt;/a&gt;, a service for playing the board game via SMS. Game play consisted of texting a command, like &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt;, the letter for the position you want to play, or &lt;code class=&quot;highlighter-rouge&quot;&gt;reset&lt;/code&gt; to quit. If &lt;code class=&quot;highlighter-rouge&quot;&gt;getattr&lt;/code&gt; threw up, then the service simply replied ‘Invalid move’ and quit.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;getattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;AttributeError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Invalid move&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</description>
+        <pubDate>Mon, 23 Mar 2015 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/blog/2015/03/23/variable-functions-are-stupid-and-fun/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2015/03/23/variable-functions-are-stupid-and-fun/</guid>
+      </item>
+    
+  </channel>
+</rss>

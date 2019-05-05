@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    <title>Atomic Deploys for PHP – Jonathan Hunsucker</title>
+
+    <meta name="author" content="Jonathan Hunsucker" />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Jonathan Hunsucker" href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Jonathan Hunsucker</a></h1>
+          </div>
+          
+          <nav>
+            <a href="/about">About</a>
+            <a href="https://github.com/jonathanhunsucker">GitHub</a>
+            <a href="https://instagram.com/jonathanhunsucker">Instagram</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="date">January 26, 2015</div>
+  <h1>Atomic Deploys for PHP</h1>
+  <div class="entry"><h4 id="preface">Preface</h4>
+<p>I make <a href="https://lateplateapp.com">Lateplate App</a>, a tiny web app for requesting to-go boxes for when you miss a meal because of a test or meeting (it’s tiny because there were only 142 people visit in the last month). It’s not making gobs of cash, so I don’t call it a business. It’s more of a very nerdy hobby. A very nerdy hobby that lets me grapple with real problems of making a web product, without having to be employeed at a company with those problems. One of those problems has been deploying without having little blips of time where errors occur.</p>
+
+<h3 id="setup">Setup</h3>
+<p>In PHP, classes are autoloaded on the fly, so there’s a chance that dependencies have been updated to a new, backwards-incompatible version. Imagine version 1 of the code this looks something like this:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+
+<span class="k">class</span> <span class="nc">Email</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">send</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Notification</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">send</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nv">$email</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Email</span><span class="p">();</span>
+        <span class="nv">$email</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>(Although both classes are shown above in the same place, imagine they’re actually in different files: <code class="highlighter-rouge">Email.php</code>, and <code class="highlighter-rouge">Notification.php</code>)</p>
+
+<p>Version 2 might look like this. A <code class="highlighter-rouge">prepare()</code> is now required before sending the email.</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+
+<span class="k">class</span> <span class="nc">Email</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$_prepared</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">prepare</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_prepared</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">send</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_prepared</span> <span class="o">!==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s1">'Email must be prepared first'</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Notification</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">send</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nv">$email</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Email</span><span class="p">();</span>
+        <span class="nv">$email</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">();</span>
+        <span class="nv">$email</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="problem">Problem</h3>
+<p>This seems all well, the new version works, and the old version works. But only if the code is either all version 1 or all version 2. When your deploy process is a glorified <code class="highlighter-rouge">rsync</code>, this isn’t the case. <code class="highlighter-rouge">Email.php</code> could be at version 2 while <code class="highlighter-rouge">Notification.php</code> is still at version 1. If a request comes in at this unfortunate blip in time, <code class="highlighter-rouge">$email-&gt;send()</code> will throw an exception.</p>
+
+<h3 id="solution">Solution</h3>
+<p>For my web app, this tiny blip in time has, to my knowledge, never been discovered. There just aren’t enough requests per second to have hit that blip, or there were, any errors went unnoticed. However, I threw a wrench in the deploy process, increasing the blip time to a few seconds. Now I can’t dismiss the risk of the blip being exposed to the people using the app. Here’s how I get around it (this is nothing novel, it’s well-ish document in the PHP world). The web server root directory is pointed to a symlink instead of a hard directory name (imagine <code class="highlighter-rouge">/opt/my-app/current/web/</code> instead of <code class="highlighter-rouge">/opt/my-app/web/</code> where <code class="highlighter-rouge">current</code> is a symlink and <code class="highlighter-rouge">/opt/my-app/</code> contains directories of versions of the app). The symlink then points to whatever version should be live (maybe <code class="highlighter-rouge">/opt/my-app/current/ -&gt; /opt/my-app/1/</code>). Instead of <code class="highlighter-rouge">rsync</code>ing to the live version directory, on each deploy, a new version directory is made (<code class="highlighter-rouge">/opt/my-app/2/</code>). New code is uploaded to the new version directory. Once all the code is uploaded, a <code class="highlighter-rouge">latest</code> symlink is created: <code class="highlighter-rouge">ln -s 2 latest</code>. Finally, the <code class="highlighter-rouge">current</code> symlink is updated atomically: <code class="highlighter-rouge">mv -T latest current</code>. The ‘atomic’ bit matters the most. The <code class="highlighter-rouge">mv</code> command does special kernel magic to make sure that <code class="highlighter-rouge">current</code> will always exist, effectively making the blip time zero.</p>
+
+<p>Old deploy process:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">rsync</span> <span class="o">./</span> <span class="n">server</span><span class="p">:</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">app</span><span class="o">/</span></code></pre></figure>
+
+<p>New deploy process:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh myapp
+<span class="nb">cd</span> /opt/my-app/
+mkdir 2
+<span class="nb">exit
+</span>rsync ./ server:/opt/my-app/2/
+ssh myapp
+<span class="nb">cd</span> /opt/my-app/
+ls -s 2 latest
+mv -T latest current</code></pre></figure>
+
+<p>This manual process is simplified into a fabric deploy script, so I actually just run <code class="highlighter-rouge">fab upversion tag_release</code> to increment the app version number and create an annotated git tag. To deploy, it’s just <code class="highlighter-rouge">fab prod deploy</code> where the <code class="highlighter-rouge">prod</code> task sets up the <code class="highlighter-rouge">env</code>, and <code class="highlighter-rouge">deploy</code> actually uploads the code, and does the symlink magic.</p>
+</div>
+</article>
+
+    </div>
+
+    <div class="container">
+      <footer class="footer">
+        <span>All Rights Reserved &copy; 2019 Jonathan Hunsucker</span>
+      </footer>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		
+		ga('create', 'UA-10136968-8', 'auto');
+		ga('send', 'pageview');
+	</script>
+	<!-- End Google Analytics -->
+
+
+  </body>
+</html>

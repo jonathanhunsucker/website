@@ -1,0 +1,29 @@
+#!/bin/bash -e
+
+echo -n "Post title (slug will be auto-generated, by converted non-alphanumeric characters to dashes): "
+read TITLE
+
+SLUG="$(echo -n "$TITLE" | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z)"
+
+FILENAME="$SLUG.md"
+
+echo -n "File will be $FILENAME. Continue (y/n): "
+read RESPONSE
+
+if [ $RESPONSE != "y" ]
+then
+    echo "exiting"
+    exit 0
+fi
+
+FULL_FILENAME="_drafts/"$FILENAME
+
+touch $FULL_FILENAME
+echo "---" >> $FULL_FILENAME
+echo "layout: post" >> $FULL_FILENAME
+echo "title: \"$TITLE\"" >> $FULL_FILENAME
+echo "---" >> $FULL_FILENAME
+echo "" >> $FULL_FILENAME
+echo "post body here" >> $FULL_FILENAME
+
+echo "created file $FULL_FILENAME"
