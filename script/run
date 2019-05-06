@@ -1,0 +1,2 @@
+#!/bin/bash -e
+hugo server --config site.toml --disableFastRender --watch
