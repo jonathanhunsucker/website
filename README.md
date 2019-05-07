@@ -8,11 +8,10 @@ Finished: ...\
 Remaining work:
 - [x] set up initial hugo layout
 - [x] migrate first post
-- [x] decide whether to this as an opportunity to remove older, less-relevant, content or whether to leave it around as a reminder of where I've been
-    - it is
+- [x] decide whether to this as an opportunity to remove older, less-relevant, content or whether to leave it around as a reminder of where I've been, _update: it is_
 - [x] migrate existing content
-- [ ] fix dead links and images
-- [ ] write build script to build content and push to separate branch
+- [x] fix dead links and images
+- [ ] write script to build content and push to separate branch
 - [ ] go live on new branch, hugo-built (flip setting in gh to point to that branch)
 - [ ] backport tracking
 

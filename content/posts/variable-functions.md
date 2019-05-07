@@ -71,7 +71,7 @@ The alternative is checking for possible command, then invoking the appropriate 
 Reeling in the danger is pretty simple: check for errors. In the case of PHP and Javascript, add checks before invoking the method. In Python, `getattr` throws an `AttributeError` when the attribute doesn't exist. Handle the exceptional case with a safe default, an error page, or safe self destruction.
 
 #### An example from Mancala
-I used this dynamic invocation trick on [Mancala](https://github.com/jonathantrevorh/mancala/), a service for playing the board game via SMS. Game play consisted of texting a command, like `start`, the letter for the position you want to play, or `reset` to quit. If `getattr` threw up, then the service simply replied 'Invalid move' and quit.
+I used this dynamic invocation trick on [Mancala](https://github.com/jonathanhunsucker/mancala/), a service for playing the board game via SMS. Game play consisted of texting a command, like `start`, the letter for the position you want to play, or `reset` to quit. If `getattr` threw up, then the service simply replied 'Invalid move' and quit.
 ```php
 try:
     getattr(self, command)()

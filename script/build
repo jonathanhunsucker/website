@@ -1,0 +1,2 @@
+#!/bin/bash -e
+hugo --config site.toml

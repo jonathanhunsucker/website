@@ -3,7 +3,7 @@ title: Loopback
 publishDate: 2015-02-18
 ---
 
-I just made [Loopback](http://codef.in/loopback/), a website that plays your microphone audio back to you. 
+I just made [Loopback](https://github.com/jonathanhunsucker/loopback/), a website that plays your microphone audio back to you. 
 
 Where I live, it's frowned upon to open your window, because A/C costs and the like. However, I really enjoy hearing the noise of outside, so I set up a microphone outside my window, wired it under the window sill, and have Loopback running on my desktop. 450% volume is a good level, and it accompanies ambient music well. 
 

@@ -21,7 +21,7 @@ Over the last 35 years, the population of Atlanta and its regional area has grow
 
 Demographics of Atlanta, Wikipedia, [source](https://en.wikipedia.org/wiki/Demographics_of_Atlanta).
 
-To achieve this, he and the City Planning department has put forth [atlcitydesign.com](atlcitydesign.com), a guiding document for the city. It's purpose is to articulate and inspire Atlantans to fall in love with their city, and make better decisions for its future. The proposal is situated on top of Dr. King's [Beloved Community](http://www.thekingcenter.org/king-philosophy#sub4) concept.
+To achieve this, he and the City Planning department has put forth [atlcitydesign.com](https://atlcitydesign.com), a guiding document for the city. It's purpose is to articulate and inspire Atlantans to fall in love with their city, and make better decisions for its future. The proposal is situated on top of Dr. King's [Beloved Community](http://www.thekingcenter.org/king-philosophy#sub4) concept.
 
 > The driving idea is to design cities for:
 > - people
