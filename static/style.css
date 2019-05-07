@@ -1,0 +1,32 @@
+/*
+ * treat everything as border-box
+ */
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/*
+ * remove default 8px margin on body
+ */
+body {
+  margin: 0;
+}
+
+/*
+ * provide single-column layout helper class, for at-most 740px wide
+ */
+.container--column {
+  margin: 0 auto;
+  max-width: 740px;
+  padding: 0 10px;
+  width: 100%;
+}
+
+/*
+ * constrain all images to be at-most the width of their parent
+ */
+img {
+  max-width: 100%;
+}
