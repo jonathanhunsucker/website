@@ -11,8 +11,8 @@ Remaining work:
 - [x] decide whether to this as an opportunity to remove older, less-relevant, content or whether to leave it around as a reminder of where I've been, _update: it is_
 - [x] migrate existing content
 - [x] fix dead links and images
-- [ ] write script to build content and push to separate branch
-- [ ] go live on new branch, hugo-built (flip setting in gh to point to that branch)
+- [x] write script to build content and push to separate branch
+- [x] go live on new branch, hugo-built (flip setting in gh to point to that branch)
 - [ ] backport tracking
 
 Nice to haves:
