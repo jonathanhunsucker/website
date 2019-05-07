@@ -7,8 +7,11 @@
     <title>{{ block "title" . }}{{ if isset .Params "title" }}{{ .Params.title }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
   </head>
   <body>
-    <h1>Jonathan Hunsucker</h1>
     {{ block "main" . }}
+      <div class="container--column">
+        <h1>Jonathan Hunsucker</h1>
+        {{ block "content" . }}{{ end }}
+      </div>
     {{ end }}
   </body>
 </html>
