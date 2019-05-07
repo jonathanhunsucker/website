@@ -2,4 +2,8 @@
 BIND="0.0.0.0"
 PORT="1314"
 
+# in background, wait a second and open browser tab
+sleep 1 && open "http://"$BIND":"$PORT &
+
+# in foreground, run server
 hugo server --config site.toml --disableFastRender --bind=$BIND --port=$PORT --watch
