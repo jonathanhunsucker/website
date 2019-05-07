@@ -1,2 +1,5 @@
 #!/bin/bash -e
-hugo server --config site.toml --disableFastRender --watch
+BIND="0.0.0.0"
+PORT="1314"
+
+hugo server --config site.toml --disableFastRender --bind=$BIND --port=$PORT --watch
