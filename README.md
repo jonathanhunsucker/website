@@ -14,7 +14,7 @@ Remaining work:
 - [x] write script to build content and push to separate branch
 - [x] go live on new branch, hugo-built (flip setting in gh to point to that branch)
 - [x] customize 404 page
-- [ ] backport tracking
+- [x] backport tracking
 
 Nice to haves:
 - [ ] set up ci to automatically build
