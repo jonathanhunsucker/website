@@ -1,10 +1,9 @@
-
 # Personal website
 See https://jonathanhunsucker.com
 
 #### Port to hugo
 Began: 2019-05-05\
-Finished: ...\
+Finished: 2019-05-07\
 Remaining work:
 - [x] set up initial hugo layout
 - [x] migrate first post
