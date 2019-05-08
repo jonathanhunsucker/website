@@ -4,7 +4,7 @@
 rm -rf public/
 
 # build the site into public/
-hugo --config site.toml
+hugo --environment production
 
 # move into that directory
 cd public/

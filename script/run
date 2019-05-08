@@ -6,4 +6,4 @@ PORT="1314"
 sleep 1 && open "http://"$BIND":"$PORT &
 
 # in foreground, run server
-hugo server --config site.toml --disableFastRender --bind=$BIND --port=$PORT --watch
+hugo server --environment development --disableFastRender --bind=$BIND --port=$PORT --watch
