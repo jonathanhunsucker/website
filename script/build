@@ -5,24 +5,3 @@ rm -rf public/
 
 # build the site into public/
 hugo --environment production
-
-# move into that directory
-cd public/
-
-# scaffold git repo, on branch `gh-pages`
-git init
-git checkout -b gh-pages
-git remote add origin git@github.com:jonathanhunsucker/website.git
-
-# add all files
-git a .
-
-# commit
-git co -m "Build on `date`"
-
-# push it up forcefully
-git push -f --set-upstream origin gh-pages
-
-# exit and destroy evidence
-cd ..
-rm -rf public/
