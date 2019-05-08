@@ -46,7 +46,7 @@ Every solution has to start somewhere. For the chosen notation, a `Solution` als
 With a notation and solution space defined, the search begins. Similar to notations, there's many suitable approaches to [searching](https://en.wikipedia.org/wiki/Category:Search_algorithms). A breadth-first search was employed against this problem. Here's a sample of a search, instrumented such that it spits out each partial solution as it stumbles upon it:
 
 ```
-[10:06:16] jhunsucker@iota:~/Projects/snake-puzzle$ ./script/bench | head -n 23
+$ ./script/bench | head -n 23
 []
 ["up"]
 ["right"]
@@ -91,7 +91,7 @@ Found solution: Solution(backward, right, forward, up, right, down, backward, up
 #### Towards a deeper understanding
 With an automatic solver in hand, the puzzle can be characterized and understood deeper.
 
-First off, the six solutions above are actuall one and the same. For example, take the first formulation, rotate 90º clockwise about the back direction, and 90º clockwise about the left direction clockwise, then you arrive at the fourth formulation. Repeating those rotations once more, arrives at the fifth formulation. The other three formulations are equal, because they're mirrors of existing formulations, across the plane normal to (-1, 1, 0), that is the plane formed by the triangle (0, 0, 0), (3, 3, 0), and (3, 3, 3) [^directions].
+First off, the six solutions above are one and the same. For example, take the first formulation, rotate 90º clockwise about the back direction, and 90º clockwise about the left direction clockwise, then you arrive at the fourth formulation. Repeating those rotations once more, arrives at the fifth formulation. The other three formulations are equal, because they're mirrors of existing formulations, across the plane normal to (-1, 1, 0), that is the plane formed by the triangle (0, 0, 0), (3, 3, 0), and (3, 3, 3) [^directions].
 
 [^directions]: Right is positive x axis, back is positive y axis, up is positive z axis. Points are given by (x, y, z).
 
