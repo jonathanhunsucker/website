@@ -96,7 +96,22 @@ First off, the six solutions above are one and the same. For example, take the f
 [^directions]: Right is positive x axis, back is positive y axis, up is positive z axis. Points are given by (x, y, z).
 
 ##### How many solutions for this configuration?
-Exactly one, if you don't count transformations as unique solutions.
+The answer depends on what types of transformations are considered trivial. 
+
+If all transformations are considered non-trivial, then there are six solutions. However, if rotation alone is trivial, then there are three solutions. Further, if all transformations (rotation and reflection) are trivial, then there is one solution.
+
+Together, we can think of solutions as isomorphic, given a set of aspects:
+
+| Transformations considered trivial | Unique solutions |
+| --- | --- |
+| `[]` | 6 |
+| `[rotating]` | 2 |
+| `[mirroring]` | 3 |
+| `[rotating, mirroring]` | 1 |
+
+##### Is there a different solution representation, which would find rotation-agnostic solutions?
+
+Yes. A turn-based representation would find that three of the above solutions are equivalent. Also, refining the search space to a single starting direction, would also whittle down the list of solutions to just two: one and its mirror. 
 
 ##### How many solvable 3-tall configurations?
 Same question as "how many traversals of a 3-tall cube exist?". Begs questions:
