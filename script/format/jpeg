@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+FILE=$1
+
+convert $FILE -strip -type Grayscale $FILE
