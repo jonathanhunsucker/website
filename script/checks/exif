@@ -1,0 +1,54 @@
+#!/usr/bin/php
+<?php
+
+// this script is two subdirectories deep, back up two
+$root = realpath(__DIR__ . '/../../');
+
+$content_directory = $root . '/content';
+$directories = new RecursiveDirectoryIterator($content_directory);
+$nodes = new RecursiveIteratorIterator($directories);
+$jpgs = new class($nodes) extends FilterIterator {
+    public function accept()
+    {
+        return in_array($this->current()->getExtension(), ["jpeg", "jpg"]);
+    }
+};
+
+$jpgs_with_exif = new class($jpgs) extends FilterIterator {
+    public function accept()
+    {
+        $path = $this->current()->getPathname();
+        $verdict = containsExif($this->current());
+        return $verdict;
+    }
+};
+
+function containsExif(SplFileInfo $file): bool
+{
+    $last_line_of_identify = exec('identify -format \'%[EXIF:*]\' ' . escapeshellarg($file->getPathname()));
+
+    if ($last_line_of_identify === '') {
+        // no lines -> no exif
+        return false;
+    }
+
+    return true;
+}
+
+function indent(iterable $lines): iterable
+{
+    foreach ($lines as $line) {
+        yield "\t" . $line;
+    }
+}
+
+$offenders = iterator_to_array($jpgs_with_exif);
+if (count($offenders) === 0) {
+    echo "Found no files containing exif data\n";
+    exit(0);
+}
+
+echo "Found the following files containing exif data:\n" . implode("\n", iterator_to_array(indent(array_map(function (SplFileInfo $file) {
+    return $file->getPathname();
+}, $offenders)))) . "\n";
+exit(1);
