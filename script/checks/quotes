@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+# do check that no “, ”, or ’ exist in `content/`
+
+ag '“|”|’' content/
