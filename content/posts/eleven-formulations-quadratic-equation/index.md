@@ -4,10 +4,10 @@ publishDate: 2019-05-12
 ---
 
 ### Aim
-My aim was to find a short and simply formulation of the Quadratic Formula. I made multiple attempts at formulation throughout a day, and catalogued the changes made between them.
+Find a short and simple formulation of the quadratic formula. I made multiple attempts at formulation throughout a day, and catalogued the changes made between them.
 
 ### Learnings
-Coming up with tidy formulations is a progression. There's multiple paths, all with the same outcome (the quadratic formula), but with different amounts of clarity, self-explanation, and follow-along-ability. Later formulations were shorter or involved less algebraic shuffling to settle out, but traded away clarity to achieve it. For example, Formulation #8 has a "scale by `4a`" step. This creates for less shuffling later on, at the cost of pulling `4a` from thin air.
+Coming up with tidy formulations is a progression. There are multiple paths, all with the same outcome (the quadratic formula), but with different amounts of clarity, self-explanation, and ease of following along. Later formulations were shorter or involved less algebraic shuffling to settle out, but traded away clarity to achieve it. For example, Formulation #8 has a "scale by `4a`" step. This creates for less shuffling later on, at the cost of pulling `4a` from thin air.
 
 ### Eleven formulations
 ![Formulations #1 and #2](images/page-1.jpg)

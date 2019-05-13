@@ -18,21 +18,21 @@ Out the gate, let's take the complement of `Pb(n)`:
 
 > `Pb(n) = 1 - P(no people share a birthday) = 1 - Pnb(n)`
 
-Although `Pb(n)` appears innocuous, a direct calculation presents a sharp edge. With either, there'll be some component representing the available birthdays, whose denominator initially containing 365. With `Pb(n)` though, as the population grows, the available pool of birthdays dwindles. This property will make directly finding an equation more difficult. Instead, we can side-step this issue, by working towards a `Pnb(n)` equation.
+Although `Pb(n)` appears innocuous, a direct calculation presents a tall hurdle. With either, there'll be some component representing the available birthdays, whose denominator initially containing 365. With `Pb(n)` though, as the population grows, the available pool of birthdays dwindles. This property will make directly finding an equation more difficult. Instead, we can side-step this hurdle, by working towards a `Pnb(n)` equation.
 
 ### Small `n`
-And as an exercise in discovery, let's calculate the odds for small numbers of people:
+As an exercise in discovery, let's calculate the odds for small numbers of people:
 
-`Pnb(1)` = `0`
+`Pnb(1) = 0`
 
-`Pnb(2)` = odds that second person's birthday is different from first  
-= `364/365`
+`Pnb(2) = odds that second person's birthday is different from first`  
+`= 364/365`
 
-`Pnb(3)` = odds that neither persons A and B, nor A and C, nor B and C share birthday  
-= `364/365 * 364/365 * 364/365`  
-= `(364/365)^3`
+`Pnb(3) = odds that neither persons A and B, nor A and C, nor B and C share birthday`  
+`= 364/365 * 364/365 * 364/365`  
+`= (364/365)^3`
 
-`Pnb(4)` = odds that none of these pairs of people share a birthday:
+`Pnb(4) = odds that none of these pairs of people share a birthday`:
 
 - A and B
 - A and C
@@ -41,12 +41,12 @@ And as an exercise in discovery, let's calculate the odds for small numbers of p
 - B and D
 - C and D
 
-= `(364/365)^6`
+`= (364/365)^6`
 
 Quickly, we see that calculating the probability will depend on counting the number of pairs of people in the room. Let's reframe `Pnb(n)`:
 
-> Pnb(n) = odds that none of the pairs of people share a birthday  
-> = `364/365^(number of pairs of people)`
+> `Pnb(n) = odds that none of the pairs of people share a birthday`  
+> `= 364/365^(number of pairs of people)`
 
 ### Counting pairs of people
 This presents a sub-problem that we can tackle in isolation, and recombine afterwards:
@@ -59,15 +59,15 @@ Drawing three people, with a line between each pair of people, we find there are
 
 This is very similar to counting from [1 to `n`](/posts/sum-from-one-to-n), except that `n` in this problem, is one greater the input to that problem's equation. Here's an adjusted formula for this problem:
 
-> `Number of pairs` = `1/2*(n-1)*n`
+> `Number of pairs = 1/2*(n-1)*n`
 
 | People | Pairs | `1/2*(n-1)*n` |
 |---|---|---|
-|1|0|`1/2*1*(1-1)` = `0` ✓|
-|2|1|`1/2*2*(2-1)` = `1` ✓|
-|3|3|`1/2*3*(3-1)` = `3` ✓|
-|4|6|`1/2*4*(4-1)` = `6` ✓|
-|5|10|`1/2*5*(5-1)` = `10` ✓|
+|1|0|`1/2*(1-1)*1 = 0` ✓|
+|2|1|`1/2*(2-1)*2 = 1` ✓|
+|3|3|`1/2*(3-1)*3 = 3` ✓|
+|4|6|`1/2*(4-1)*4 = 6` ✓|
+|5|10|`1/2*(5-1)*5 = 10` ✓|
 
 ### Circling back
 Going back to the calculating `Pnb(n)`, we can replace "number of pairs of people" with `1/2*(n-1)*n`, giving us:
@@ -84,18 +84,18 @@ Now we have an equation whose only variable is `n`. We'd like to know what value
 
 At this point, there at least two paths to proceed along:
 
-1. Use algebra to find a simple equation where `n` stands by itself
+1. Use algebra to find a simple equation, solving for `n`
 1. Guess and check to find the smallest value of `n` satisfying the inequality
 
-Consider the first path, the equation would involve logarithm (due to the exponentiation), and the [quadratic equation](/posts/quadratic) (due to the `n^2` term). Together, that sounds more involved than guessing and checking.
+Considering the first path, the equation would involve logarithm (due to the exponentiation), and the [quadratic equation](/posts/eleven-formulations-quadratic-formula) (due to the `n^2` term). Together, that sounds more involved than guessing and checking.
 
 I'll take `182` as my first guess, since it's half of `365` [^182].
 
-[^182]: This is a common guess. We're familiar with the number of days in a year, and we need some odds greater than `1/2`, so it makes sense to try half of 365. The sole input to `Pnb(n)` – `n` – is in units "people", so chosing a value related to days in a year is off base.
+[^182]: This is a common guess. We're familiar with the number of days in a year, and we need some odds greater than `1/2`, so it makes sense to try half of 365. The sole input to `Pnb(n)`, aka `n`, is in units "people", so chosing a value related to days in a year is off base.
 
 > `(364/365)^(1/2*(n-1)*n) = (364/365)^(1/2*(182-1)*182) ~= 0.00000000000000000002372`
 
-This is far smaller than `1/2`, so we're not close yet. Looking at the equation, we can find what direction to go: if I increase my guess, then the power of 364/365 increases, which will make the value smaller. We need a higher value, to begin approaching `1/2`, so we need a smaller guess. I'll try `30`.
+This is far smaller than `1/2`, so we're not close yet. Looking at the equation, we can find what direction to go: if I increase my guess, then the power of `364/365` increases, which will make the value smaller. We need a higher value, to begin approaching `1/2`, so we need a smaller guess. I'll try `30`.
 
 > `(364/365)^(1/2*(n-1)*n) = (364/365)^(1/2*(30-1)*30) ~= 0.3032`
 
