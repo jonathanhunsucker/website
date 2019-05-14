@@ -87,7 +87,7 @@ At this point, there at least two paths to proceed along:
 1. Use algebra to find a simple equation, solving for `n`
 1. Guess and check to find the smallest value of `n` satisfying the inequality
 
-Considering the first path, the equation would involve logarithm (due to the exponentiation), and the [quadratic equation](/posts/eleven-formulations-quadratic-formula) (due to the `n^2` term). Together, that sounds more involved than guessing and checking.
+Considering the first path, the equation would involve logarithm (due to the exponentiation), and the [quadratic equation](/posts/eleven-formulations-quadratic-equation) (due to the `n^2` term). Together, that sounds more involved than guessing and checking.
 
 I'll take `182` as my first guess, since it's half of `365` [^182].
 
