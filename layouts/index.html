@@ -1,7 +1,7 @@
 {{ define "content" }}
   <ul>
     {{ range .Data.Pages }}
-    <li><a href="{{ .Page.Permalink }}">{{ .Title }}</a>, <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "January 2, 2006" }}</time></li>
+    <li><a href="{{ .Page.RelPermalink }}">{{ .Title }}</a>, <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "January 2, 2006" }}</time></li>
     {{ end }}
   </ul>
 {{ end}}

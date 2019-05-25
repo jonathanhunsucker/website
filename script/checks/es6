@@ -1,0 +1,3 @@
+#!/bin/bash -e
+
+# TODO check javascript files for usages of language features not sufficiently available, eg. static properties on classes
