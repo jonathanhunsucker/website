@@ -1,5 +1,25 @@
 # Personal website
-See https://jonathanhunsucker.com
+See [https://jonathanhunsucker.com](https://jonathanhunsucker.com).
+
+# Deploying
+
+## Building production
+
+> `$ ./script/build`
+
+Builds the site into `public/` using the `production` environment.
+
+## Testing production locally
+
+> `$ ./script/build-serve`
+
+Spins up a local HTTP server, serving out of the `public/` directory.
+
+## Shipping production build
+
+> `$ ./script/deploy`
+
+Creates an empty `gh-pages` branch locally, commits whatever's in `public/` as the sole commit on that branch, and force-pushes it to `gh-pages` on GitHub.
 
 
 # Style
