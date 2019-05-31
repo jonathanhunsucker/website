@@ -37,10 +37,14 @@ This post will approach the topic from a mathematical perspective, by using equa
     </script>
 </form>
 
-Counter to intuition, adding someone to the project doesn't result in an immediate increase in the project's velocity. This effect is primarily attributed to unforeseen variables:
+Counter to intuition, adding someone to the project doesn't result in an immediate increase in the project's velocity. This effect is primarily attributed to unforeseen variables [^interview]:
 
+* repartitioning of responsibilities and work breakdown
 * new folks need time to get acquainted to making Widgets
 * bringing someone up to speed, temporarily slows down other folks making making Widgets
+* more people to communicate with
+
+[^interview]: See https://cs.calvin.edu/courses/cs/262/kvlinden/references/brooksInterview.html
 
 The more familiar the new folks are to the project, the less time will be necessary assimilating them. If we could hand-wave away assimilation costs, then projects and staffing would behave simply:
 
