@@ -25,10 +25,13 @@ body {
 }
 
 /*
- * constrain all images to be at-most the width of their parent
+ * constrain all images to:
  */
 img {
-  max-width: 100%;
+  max-width: 100%; /* at most, the width of their parent element */
+  max-height: 90vh; /* at most, 90% of the viewport's height */
+  display: block; /* permit a margin to exist */
+  margin: 1em auto 1em auto; /* 1em top and bottom, and horizontally centered */
 }
 
 /*
@@ -46,7 +49,7 @@ table {
     border-collapse: collapse;
 }
 
-/**
+/*
  * switch from baseline to text-top to better align vertically with labels to the left
  */
 input[type="range"] {
