@@ -5,19 +5,19 @@ See [https://jonathanhunsucker.com](https://jonathanhunsucker.com).
 
 ## Building production
 
-> `$ ./script/build`
+> `$ ./script/deploy/build`
 
 Builds the site into `public/` using the `production` environment.
 
 ## Testing production locally
 
-> `$ ./script/build-serve`
+> `$ ./script/deploy/build-serve`
 
 Spins up a local HTTP server, serving out of the `public/` directory.
 
 ## Shipping production build
 
-> `$ ./script/deploy`
+> `$ ./script/deploy/ship`
 
 Creates an empty `gh-pages` branch locally, commits whatever's in `public/` as the sole commit on that branch, and force-pushes it to `gh-pages` on GitHub.
 
@@ -33,7 +33,9 @@ Bad:
 > `a^2 + b^2` = `c^2`
 
 #### Avoid smart punctuation
-`./script/check/quotes` and `./script/format/md` are available to check and fix these issues.
+`./script/check/quotes` and `./script/check/quotes-fix` are available to check and fix these issues.
 
-#### Greyscale, no exif images
-`./script/check/exif` and `./script/format/jpeg` are available to find exif-containing files, and fix both issues.
+#### Grayscale images, no exif data
+
+* `./script/check/exif` to find exif-containing files
+* `./script/check/grayscale-fix` to make an image grayscale
