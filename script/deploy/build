@@ -1,9 +1,6 @@
 #!/bin/bash -e
-pwd
-ls
-
-# clear the ground
-rm -rf public/
 
 # build the site into public/
-HUGO_ENV=production hugo -v -s ./
+HUGO_ENV=production hugo
+
+cp -r .circleci public/

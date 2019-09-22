@@ -6,17 +6,19 @@ cd public/
 # scaffold git repo, on branch `gh-pages`
 git init
 git checkout -b gh-pages
-git remote add origin git@github.com:jonathanhunsucker/website.git
+git remote add origin https://${GITHUB_TOKEN}@github.com/jonathanhunsucker/website.git
+
+mkdir -p ~/.ssh
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+git config --global user.email "jonathantrevorh+ci@gmail.com"
+git config --global user.name "Jonathan Hunsucker (CI)"
 
 # add all files
-git a .
+git add .
 
 # commit
-git co -m "Build on `date`"
+git commit -m "Build on `date`"
 
 # push it up forcefully
 git push -f --set-upstream origin gh-pages
-
-# exit and destroy evidence
-cd ..
-rm -rf public/

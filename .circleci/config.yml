@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: felicianotech/docker-hugo:latest
+      - image: cibuilds/hugo:0.54
     working_directory: ~/website
     steps:
       - checkout
@@ -16,4 +16,8 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
