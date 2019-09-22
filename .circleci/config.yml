@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: felicianotech/docker-hugo:latest
+    working_directory: ~/website
     steps:
       - checkout
       - run:
