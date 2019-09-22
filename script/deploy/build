@@ -1,4 +1,5 @@
 #!/bin/bash -e
+pwd
 
 # clear the ground
 rm -rf public/
