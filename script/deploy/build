@@ -1,5 +1,6 @@
 #!/bin/bash -e
 pwd
+ls
 
 # clear the ground
 rm -rf public/
