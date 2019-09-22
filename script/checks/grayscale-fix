@@ -2,4 +2,4 @@
 
 FILE=$1
 
-convert $FILE -strip -type Grayscale $FILE
+convert $FILE -type Grayscale $FILE
