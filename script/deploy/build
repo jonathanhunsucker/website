@@ -4,4 +4,4 @@
 rm -rf public/
 
 # build the site into public/
-hugo --environment production
+HUGO_ENVIRONMENT=production hugo
