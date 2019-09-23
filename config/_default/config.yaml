@@ -1,10 +1,10 @@
 baseUrl: "https://jonathanhunsucker.com/"
 title: "Jonathan Hunsucker"
 staticDir: "static/"
+assetDir: "assets/"
 googleAnalytics: ""
 menu:
   main:
     - identifier: home
       name: Posts
       url: /
-
