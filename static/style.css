@@ -25,6 +25,29 @@ body {
 }
 
 /*
+ * in navigation, remove left padding on ul elements
+ */
+nav.main ul {
+  padding: 0;
+}
+
+/*
+ * in navigation, fit items into single line, spaced out 1em
+ */
+nav.main ul li {
+  list-style: none;
+  display: inline-block;
+  margin-right: 1em;
+}
+
+/*
+ * in navigation, last item lacks right spacing
+ */
+nav.main ul li:last-child {
+  margin-right: 0em;
+}
+
+/*
  * constrain all images to:
  */
 img {

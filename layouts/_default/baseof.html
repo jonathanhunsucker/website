@@ -11,6 +11,13 @@
     {{ block "main" . }}
       <div class="container--column">
         <h1>Jonathan Hunsucker</h1>
+        <nav class="main">
+          <ul>
+            {{ range .Site.Menus.main.ByName }}
+              <li><a href="{{ .URL }}" title="{{ .Title }}">{{- .Name -}}</a></li>
+            {{- end -}}
+          </ul>
+        </nav>
         {{ block "content" . }}{{ end }}
       </div>
     {{ end }}
