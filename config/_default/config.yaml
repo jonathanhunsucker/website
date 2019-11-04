@@ -8,3 +8,6 @@ menu:
     - identifier: home
       name: Posts
       url: /
+    - identifier: projects
+      name: Projects
+      url: /projects
