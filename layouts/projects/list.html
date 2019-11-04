@@ -1,0 +1,6 @@
+{{ define "content" }}
+  {{ range .Data.Pages }}
+  <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+  <p>{{ .Summary }}</p>
+  {{ end }}
+{{ end}}
