@@ -3,6 +3,8 @@ title: "Amtrak Acela On-time Probability Distribution"
 publishDate: 2019-12-03
 ---
 
+> Update: This work was extended into a [stand-alone website](https://amtrak-on-time.jonathanhunsucker.com) containing all trains' arrival time probability distributions.
+
 Over the last 13 years, John G. Bobinyec has been gathering individual train status information, recording it, and sharing it with the world at [dixielandsoftware.net/Amtrak/status/StatusPages/](http://dixielandsoftware.net/Amtrak/status/StatusPages/). They maintain up-to-date timetables of trains past arrived and currently en route, along with faux [Solari departure boards](https://en.wikipedia.org/wiki/Split-flap_display).
 
 ![A plain text timetable, columns for expected and actual departure and arrival times, and rows for stops along the route.](images/plain-text-timetable.png)
