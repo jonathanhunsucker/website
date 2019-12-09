@@ -1,5 +1,6 @@
 {{ define "main" }}
   <div class="container--column">
+    <p>← <a href="/">Home</a></p>
     <h1>{{ .Title }}</h1>
     <h6>On <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "January 2, 2006" }}</time> by Jonathan Hunsucker</h6>
     {{ .Content }}
