@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="author" content="Jonathan Hunsucker" />
+    
+    <link rel="stylesheet" type="text/css" href="https://jonathanhunsucker.com/style.min.d9fe226251cfc02a8739f8eacbaaafc0b9e27b93130d2d14a6c6ad0624924b42.css" />
+    <title>Issue tracking for a team of 1 - Jonathan Hunsucker</title>
+  </head>
+  <body>
+    
+  <div class="container--column">
+    <p>← <a href="/">Home</a></p>
+    <h1>Issue tracking for a team of 1</h1>
+    <h6>On <time datetime="2015-01-31">January 31, 2015</time> by Jonathan Hunsucker</h6>
+    
+
+<h4 id="preface">Preface</h4>
+
+<p>I make <a href="https://lateplateapp.com">Lateplate App</a>, a tiny SaaS, as <a href="/Atomic-Deploys-for-PHP/">mentioned before</a>. People don&rsquo;t often ask for features, but luckily, enough things come to mind to cause contention for what is implemented next.</p>
+
+<h3 id="my-process">My process</h3>
+
+<p>No matter how small the team, some process for tracking what to do next will exist. Either it&rsquo;s stream of thought and you&rsquo;re able to write software quicker than you can forget, or you&rsquo;ve got so many incoming requests that some issues have been seen only by the requester. I&rsquo;m terrible at remembering things, so my issue tracking is only a checklist. It looks something like this:</p>
+
+<pre><code>☐ Make a logo
+☐ Suggest adding a diet if the request notes include &quot;vegetarian&quot; or &quot;no meat&quot;, etc
+☐ Update to OAuth
+☐ Better error page
+☐ ----------------------
+☐ Create an event storage system to string together user stories
+☐ On help page, use referrer to guess a relevant article
+☐ Migrate to www.
+☐ ----------------------
+☑ Get rid of /about page
+☑ Precompile views
+☑ Add meals to admin panel
+☑ Menu uploads via /manage/
+</code></pre>
+
+<p>Sections are divided by dashes.</p>
+
+<h4 id="the-first-section-bugs-and-on-mind-features">The first section: Bugs and on-mind features</h4>
+
+<p>Bugs jump straight to the top here. I don&rsquo;t work on features until known bugs are gone. This section contains things that are on my mind and are to be implemented next. When an item is finished, it&rsquo;s commited to master and checked off (moving it to the bottom section). I deploy whenever I feel like, but at least when the top section is exhausted. More often, I&rsquo;ll finish things and check them off, and add things back before this section is emptied.</p>
+
+<h4 id="the-second-section-everything-else">The second section: Everything else</h4>
+
+<p>These are &ldquo;I wish I had [blank]&ldquo;s, and &ldquo;In the future, it&rsquo;d be good to have [blank]&ldquo;s. Things that came to mind once, but aren&rsquo;t worth their development cost right now. A few months ago, the OAuth item was in this section, but it&rsquo;s got an artificial deadline around April, so it&rsquo;s been bumped up.</p>
+
+<h4 id="checked-section">Checked section</h4>
+
+<p>I have never read through this section. It&rsquo;s mostly to make me feel better, and maybe it&rsquo;ll be useful in the future to know what I&rsquo;ve done.</p>
+
+<h3 id="minimum-viable-process">Minimum viable process</h3>
+
+<p>I&rsquo;ve been asked why I don&rsquo;t use something more formal, like the &ldquo;agile&rdquo; tools mentioned in coursework. They&rsquo;re just not necessary for how few things there are to track. Using something with more features requires manipulating tasks in a framework other than my head. The goal for any interface should be matching the person&rsquo;s mental model as closely as possible. This is echoed in principles like <a href="http://en.wikipedia.org/wiki/KISS_principle">KISS</a> and books like <a href="http://en.wikipedia.org/wiki/Don%27t_Make_Me_Think">Don&rsquo;t Make Me Think</a>. Tasks are done or not done, in mind or not. Anything more descriptive (points, delivered vs rejected vs unstarted, etc) just gets in the way, for a project this small.</p>
+
+    <hr>
+    <nav class="main">
+  <ul>
+    
+      <li><a href="/" title="">Posts</a></li>
+      <li><a href="/projects" title="">Projects</a></li></ul>
+</nav>
+
+  </div>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10136968-8', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

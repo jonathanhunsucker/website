@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="author" content="Jonathan Hunsucker" />
+    
+    <link rel="stylesheet" type="text/css" href="https://jonathanhunsucker.com/style.min.d9fe226251cfc02a8739f8eacbaaafc0b9e27b93130d2d14a6c6ad0624924b42.css" />
+    <title>Birthday problem - Jonathan Hunsucker</title>
+  </head>
+  <body>
+    
+  <div class="container--column">
+    <p>← <a href="/">Home</a></p>
+    <h1>Birthday problem</h1>
+    <h6>On <time datetime="2019-05-12">May 12, 2019</time> by Jonathan Hunsucker</h6>
+    
+
+<p>The birthday problem is as follows:</p>
+
+<blockquote>
+<p>How many people must be in the same room to make it likely that somebody shares a birthday?<sup class="footnote-ref" id="fnref:question"><a href="#fn:question">1</a></sup></p>
+</blockquote>
+
+<p>We&rsquo;ll capture this problem as <code>Pb(n) = P(two or more people in room with n-many people, share a birthday)</code>.</p>
+
+<h3 id="first-step">First step</h3>
+
+<p>Out the gate, let&rsquo;s take the complement of <code>Pb(n)</code>:</p>
+
+<blockquote>
+<p><code>Pb(n) = 1 - P(no people share a birthday) = 1 - Pnb(n)</code></p>
+</blockquote>
+
+<p>Although <code>Pb(n)</code> appears innocuous, a direct calculation presents a tall hurdle. With either, there&rsquo;ll be some component representing the available birthdays, whose denominator initially containing 365. With <code>Pb(n)</code> though, as the population grows, the available pool of birthdays dwindles. This property will make directly finding an equation more difficult. Instead, we can side-step this hurdle, by working towards a <code>Pnb(n)</code> equation.</p>
+
+<h3 id="small-n">Small <code>n</code></h3>
+
+<p>As an exercise in discovery, let&rsquo;s calculate the odds for small numbers of people:</p>
+
+<p><code>Pnb(1) = 0</code></p>
+
+<p><code>Pnb(2) = odds that second person's birthday is different from first</code><br />
+<code>= 364/365</code></p>
+
+<p><code>Pnb(3) = odds that neither persons A and B, nor A and C, nor B and C share birthday</code><br />
+<code>= 364/365 * 364/365 * 364/365</code><br />
+<code>= (364/365)^3</code></p>
+
+<p><code>Pnb(4) = odds that none of these pairs of people share a birthday</code>:</p>
+
+<ul>
+<li>A and B</li>
+<li>A and C</li>
+<li>A and D</li>
+<li>B and C</li>
+<li>B and D</li>
+<li>C and D</li>
+</ul>
+
+<p><code>= (364/365)^6</code></p>
+
+<p>Quickly, we see that calculating the probability will depend on counting the number of pairs of people in the room. Let&rsquo;s reframe <code>Pnb(n)</code>:</p>
+
+<blockquote>
+<p><code>Pnb(n) = odds that none of the pairs of people share a birthday</code><br />
+<code>= 364/365^(number of pairs of people)</code></p>
+</blockquote>
+
+<h3 id="counting-pairs-of-people">Counting pairs of people</h3>
+
+<p>This presents a sub-problem that we can tackle in isolation, and recombine afterwards:</p>
+
+<blockquote>
+<p>Given <code>n</code> people, how many distinct pairs are there?</p>
+</blockquote>
+
+<p>Drawing three people, with a line between each pair of people, we find there are thee pairs. With four people, there&rsquo;s six pairs. Five people, ten pairs.</p>
+
+<p><img src="images/pairs.jpg" alt="Groups of 3, 4, and 5 people, with lines representing distinct pairs of people" /></p>
+
+<p>This is very similar to counting from <a href="/posts/sum-from-one-to-n">1 to <code>n</code></a>, except that <code>n</code> in this problem, is one greater the input to that problem&rsquo;s equation. Here&rsquo;s an adjusted formula for this problem:</p>
+
+<blockquote>
+<p><code>Number of pairs = 1/2*(n-1)*n</code></p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>People</th>
+<th>Pairs</th>
+<th><code>1/2*(n-1)*n</code></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td><code>1/2*(1-1)*1 = 0</code> ✓</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>1</td>
+<td><code>1/2*(2-1)*2 = 1</code> ✓</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>3</td>
+<td><code>1/2*(3-1)*3 = 3</code> ✓</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>6</td>
+<td><code>1/2*(4-1)*4 = 6</code> ✓</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>10</td>
+<td><code>1/2*(5-1)*5 = 10</code> ✓</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="circling-back">Circling back</h3>
+
+<p>Going back to the calculating <code>Pnb(n)</code>, we can replace &ldquo;number of pairs of people&rdquo; with <code>1/2*(n-1)*n</code>, giving us:</p>
+
+<blockquote>
+<p><code>Pnb(n) = (364/365)^(1/2*(n-1)*n)</code></p>
+</blockquote>
+
+<p>Now we have an equation whose only variable is <code>n</code>. We&rsquo;d like to know what value of <code>n</code> is sufficient to make <code>Pb(n) &gt;= 1/2</code>. Rephrasing:</p>
+
+<blockquote>
+<p><code>Pb(n) &gt;= 1/2</code><br />
+<code>1 - Pnb(n) &gt;= 1/2</code><br />
+<code>1 - (364/365)^(1/2*(n-1)*n) &gt;= 1/2</code><br />
+<code>1 - 1/2 &gt;= (364/365)^(1/2*(n-1)*n)</code><br />
+<code>1/2 &gt;= (364/365)^(1/2*(n-1)*n)</code></p>
+</blockquote>
+
+<p>At this point, there at least two paths to proceed along:</p>
+
+<ol>
+<li>Use algebra to find a simple equation, solving for <code>n</code></li>
+<li>Guess and check to find the smallest value of <code>n</code> satisfying the inequality</li>
+</ol>
+
+<p>Considering the first path, the equation would involve logarithm (due to the exponentiation), and the <a href="/posts/eleven-formulations-quadratic-equation">quadratic equation</a> (due to the <code>n^2</code> term). Together, that sounds more involved than guessing and checking.</p>
+
+<p>I&rsquo;ll take <code>182</code> as my first guess, since it&rsquo;s half of <code>365</code> <sup class="footnote-ref" id="fnref:182"><a href="#fn:182">2</a></sup>.</p>
+
+<blockquote>
+<p><code>(364/365)^(1/2*(n-1)*n) = (364/365)^(1/2*(182-1)*182) ~= 0.00000000000000000002372</code></p>
+</blockquote>
+
+<p>This is far smaller than <code>1/2</code>, so we&rsquo;re not close yet. Looking at the equation, we can find what direction to go: if I increase my guess, then the power of <code>364/365</code> increases, which will make the value smaller. We need a higher value, to begin approaching <code>1/2</code>, so we need a smaller guess. I&rsquo;ll try <code>30</code>.</p>
+
+<blockquote>
+<p><code>(364/365)^(1/2*(n-1)*n) = (364/365)^(1/2*(30-1)*30) ~= 0.3032</code></p>
+</blockquote>
+
+<p>Much closer to <code>1/2</code>. Let&rsquo;s build a table with our guesses, cataloging the search:</p>
+
+<table>
+<thead>
+<tr>
+<th>People</th>
+<th>Odds</th>
+<th>Verdict</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>182</code></td>
+<td><code>(364/365)^(1/2*182*(182-1)) ~= 0.00000000000000000002372</code></td>
+<td>Way too large a guess</td>
+</tr>
+
+<tr>
+<td><code>30</code></td>
+<td><code>(364/365)^(1/2*30*(30-1)) ~= 0.3032</code></td>
+<td>Closer</td>
+</tr>
+
+<tr>
+<td><code>15</code></td>
+<td><code>(364/365)^(1/2*15*(15-1)) ~= 0.7497</code></td>
+<td>Overshot <code>1/2</code></td>
+</tr>
+
+<tr>
+<td><code>22</code></td>
+<td><code>(364/365)^(1/2*22*(22-1)) ~= 0.5306</code></td>
+<td>Just slightly over</td>
+</tr>
+
+<tr>
+<td><code>23</code></td>
+<td><code>(364/365)^(1/2*23*(23-1)) ~= 0.4995</code></td>
+<td>Precisely enough people</td>
+</tr>
+</tbody>
+</table>
+
+<p>This is surprising! We need only 23 people in the room, to make it likely that someone will share a birthday.</p>
+
+<h3 id="closing-thoughts">Closing thoughts</h3>
+
+<p>Why is this such a small number? Let&rsquo;s reflect on the equation: <code>364/365^(1/2*(n-1)*n)</code>. <code>364/365</code> is marginally less than one, and continues to get shrink as the exponent&rsquo;s power grows. The power is <code>1/2*(n-1)*n = 1/2*(n^2 - n)</code>. In particular, <code>n^2</code> grows much quicker than <code>n</code>. Imagine the area of a square, and how quickly its area grows as both its sides, <code>n</code>, increase. We need only 23 people, far less than 182, because number of pairs of people grows this quickly.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:question">Likely means &ldquo;better than a coin flip&rdquo;, or <code>P &gt;= 1/2</code>. The formulation of this question is tricky. We can&rsquo;t say &ldquo;likely that two people share a birthday&rdquo;, because that&rsquo;s overly restrictive: it&rsquo;s okay if three people share a birthday.
+ <a class="footnote-return" href="#fnref:question"><sup>[return]</sup></a></li>
+<li id="fn:182">This is a common guess. We&rsquo;re familiar with the number of days in a year, and we need some odds greater than <code>1/2</code>, so it makes sense to try half of 365. The sole input to <code>Pnb(n)</code>, aka <code>n</code>, is in units &ldquo;people&rdquo;, so chosing a value related to days in a year is off base.
+ <a class="footnote-return" href="#fnref:182"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+    <hr>
+    <nav class="main">
+  <ul>
+    
+      <li><a href="/" title="">Posts</a></li>
+      <li><a href="/projects" title="">Projects</a></li></ul>
+</nav>
+
+  </div>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10136968-8', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

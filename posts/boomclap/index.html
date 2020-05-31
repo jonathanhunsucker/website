@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="author" content="Jonathan Hunsucker" />
+    
+    <link rel="stylesheet" type="text/css" href="https://jonathanhunsucker.com/style.min.d9fe226251cfc02a8739f8eacbaaafc0b9e27b93130d2d14a6c6ad0624924b42.css" />
+    <title>Boomclap: A Sampler/Sequencer using Web Audio API - Jonathan Hunsucker</title>
+  </head>
+  <body>
+    
+  <div class="container--column">
+    <p>← <a href="/">Home</a></p>
+    <h1>Boomclap: A Sampler/Sequencer using Web Audio API</h1>
+    <h6>On <time datetime="2017-11-25">November 25, 2017</time> by Jonathan Hunsucker</h6>
+    
+
+<p><a href="https://github.com/jonathanhunsucker/boomclap/">Boomclap</a> is a sampler and sequencer built using the Web Audio API. It&rsquo;s very crude. The next beat is scheduled with <code>setTimeout</code>, and the Web Audio API Node graph is built on every beat. It&rsquo;s a fun toy to play around with.</p>
+
+<h3 id="sampling-interface">Sampling interface</h3>
+
+<p><img src="images/boomclap-sampler.gif" alt="Sampling interface" />
+The window shows the last few seconds of microphone audio. Freeze the window, crop the sample, and save it to the sequencer.</p>
+
+<h3 id="sequencing-interface">Sequencing interface</h3>
+
+<p><img src="images/boomclap-sequencer.gif" alt="Sequencing interface" />
+The sequencing grid has a row for each sample, and a column for each 16th beat in one bar. Clicking a cell plays the corresponding sample on that beat.</p>
+
+<h3 id="sample-editing">Sample editing</h3>
+
+<p><img src="images/boomclap-sample-editor.gif" alt="Sample editing interface" />
+Clicking a sample, opens the editor interface. Slide to configure pitch, gain, and filter cut off. Each change re-plays the sample. Optionally, delete, play, or duplicate the sample.</p>
+
+    <hr>
+    <nav class="main">
+  <ul>
+    
+      <li><a href="/" title="">Posts</a></li>
+      <li><a href="/projects" title="">Projects</a></li></ul>
+</nav>
+
+  </div>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10136968-8', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

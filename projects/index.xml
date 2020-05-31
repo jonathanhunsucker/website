@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Jonathan Hunsucker</title>
+    <link>https://jonathanhunsucker.com/projects/</link>
+    <description>Recent content in Projects on Jonathan Hunsucker</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 08 Dec 2019 23:02:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jonathanhunsucker.com/projects/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Amtrak On Time</title>
+      <link>https://jonathanhunsucker.com/projects/amtrak-on-time/</link>
+      <pubDate>Sun, 08 Dec 2019 23:02:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/projects/amtrak-on-time/</guid>
+      <description>Catalogue and analysis of Amtrak train arrival performance</description>
+    </item>
+    
+    <item>
+      <title>WDAW</title>
+      <link>https://jonathanhunsucker.com/projects/wdaw/</link>
+      <pubDate>Sat, 30 Nov 2019 02:23:51 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/projects/wdaw/</guid>
+      <description>Sad in-browser &amp;ldquo;digital audio workstation&amp;rdquo;</description>
+    </item>
+    
+    <item>
+      <title>Keyboard</title>
+      <link>https://jonathanhunsucker.com/projects/keyboard/</link>
+      <pubDate>Sun, 03 Nov 2019 23:01:36 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/projects/keyboard/</guid>
+      <description>In-browser keyboard using Web Audio APIs</description>
+    </item>
+    
+  </channel>
+</rss>

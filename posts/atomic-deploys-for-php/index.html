@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="author" content="Jonathan Hunsucker" />
+    
+    <link rel="stylesheet" type="text/css" href="https://jonathanhunsucker.com/style.min.d9fe226251cfc02a8739f8eacbaaafc0b9e27b93130d2d14a6c6ad0624924b42.css" />
+    <title>Atomic Deploys for PHP - Jonathan Hunsucker</title>
+  </head>
+  <body>
+    
+  <div class="container--column">
+    <p>← <a href="/">Home</a></p>
+    <h1>Atomic Deploys for PHP</h1>
+    <h6>On <time datetime="2015-01-26">January 26, 2015</time> by Jonathan Hunsucker</h6>
+    
+
+<h4 id="preface">Preface</h4>
+
+<p>I make <a href="https://lateplateapp.com">Lateplate App</a>, a tiny web app for requesting to-go boxes for when you miss a meal because of a test or meeting (it&rsquo;s tiny because there were only 142 people visit in the last month). It&rsquo;s not making gobs of cash, so I don&rsquo;t call it a business. It&rsquo;s more of a very nerdy hobby. A very nerdy hobby that lets me grapple with real problems of making a web product, without having to be employeed at a company with those problems. One of those problems has been deploying without having little blips of time where errors occur.</p>
+
+<h3 id="setup">Setup</h3>
+
+<p>In PHP, classes are autoloaded on the fly, so there&rsquo;s a chance that dependencies have been updated to a new, backwards-incompatible version. Imagine version 1 of the code this looks something like this:</p>
+
+<pre><code class="language-php">&lt;?php
+
+class Email {
+    public function send() {}
+}
+
+class Notification {
+    public function send() {
+        $email = new Email();
+        $email-&gt;send();
+    }
+}
+</code></pre>
+
+<p>(Although both classes are shown above in the same place, imagine they&rsquo;re actually in different files: <code>Email.php</code>, and <code>Notification.php</code>)</p>
+
+<p>Version 2 might look like this. A <code>prepare()</code> is now required before sending the email.</p>
+
+<pre><code class="language-php">&lt;?php
+
+class Email {
+    private $_prepared = false;
+
+    public function prepare() {
+        $this-&gt;_prepared = true;
+    }
+    public function send() {
+        if ($this-&gt;_prepared !== true) {
+            throw new Exception('Email must be prepared first');
+        }
+    }
+}
+
+class Notification {
+    public function send() {
+        $email = new Email();
+        $email-&gt;prepare();
+        $email-&gt;send();
+    }
+}
+</code></pre>
+
+<h3 id="problem">Problem</h3>
+
+<p>This seems all well, the new version works, and the old version works. But only if the code is either all version 1 or all version 2. When your deploy process is a glorified <code>rsync</code>, this isn&rsquo;t the case. <code>Email.php</code> could be at version 2 while <code>Notification.php</code> is still at version 1. If a request comes in at this unfortunate blip in time, <code>$email-&gt;send()</code> will throw an exception.</p>
+
+<h3 id="solution">Solution</h3>
+
+<p>For my web app, this tiny blip in time has, to my knowledge, never been discovered. There just aren&rsquo;t enough requests per second to have hit that blip, or there were, any errors went unnoticed. However, I threw a wrench in the deploy process, increasing the blip time to a few seconds. Now I can&rsquo;t dismiss the risk of the blip being exposed to the people using the app. Here&rsquo;s how I get around it (this is nothing novel, it&rsquo;s well-ish document in the PHP world). The web server root directory is pointed to a symlink instead of a hard directory name (imagine <code>/opt/my-app/current/web/</code> instead of <code>/opt/my-app/web/</code> where <code>current</code> is a symlink and <code>/opt/my-app/</code> contains directories of versions of the app). The symlink then points to whatever version should be live (maybe <code>/opt/my-app/current/ -&gt; /opt/my-app/1/</code>). Instead of <code>rsync</code>ing to the live version directory, on each deploy, a new version directory is made (<code>/opt/my-app/2/</code>). New code is uploaded to the new version directory. Once all the code is uploaded, a <code>latest</code> symlink is created: <code>ln -s 2 latest</code>. Finally, the <code>current</code> symlink is updated atomically: <code>mv -T latest current</code>. The &lsquo;atomic&rsquo; bit matters the most. The <code>mv</code> command does special kernel magic to make sure that <code>current</code> will always exist, effectively making the blip time zero.</p>
+
+<p>Old deploy process:</p>
+
+<pre><code class="language-bash">rsync ./ server:/opt/my-app/
+</code></pre>
+
+<p>New deploy process:</p>
+
+<pre><code class="language-bash">ssh myapp
+cd /opt/my-app/
+mkdir 2
+exit
+rsync ./ server:/opt/my-app/2/
+ssh myapp
+cd /opt/my-app/
+ls -s 2 latest
+mv -T latest current
+</code></pre>
+
+<p>This manual process is simplified into a fabric deploy script, so I actually just run <code>fab upversion tag_release</code> to increment the app version number and create an annotated git tag. To deploy, it&rsquo;s just <code>fab prod deploy</code> where the <code>prod</code> task sets up the <code>env</code>, and <code>deploy</code> actually uploads the code, and does the symlink magic.</p>
+
+    <hr>
+    <nav class="main">
+  <ul>
+    
+      <li><a href="/" title="">Posts</a></li>
+      <li><a href="/projects" title="">Projects</a></li></ul>
+</nav>
+
+  </div>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10136968-8', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

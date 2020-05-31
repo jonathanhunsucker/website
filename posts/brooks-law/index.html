@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="author" content="Jonathan Hunsucker" />
+    
+    <link rel="stylesheet" type="text/css" href="https://jonathanhunsucker.com/style.min.d9fe226251cfc02a8739f8eacbaaafc0b9e27b93130d2d14a6c6ad0624924b42.css" />
+    <title>Brook&#39;s Law - Jonathan Hunsucker</title>
+  </head>
+  <body>
+    
+  <div class="container--column">
+    <p>← <a href="/">Home</a></p>
+    <h1>Brook&#39;s Law</h1>
+    <h6>On <time datetime="2019-05-29">May 29, 2019</time> by Jonathan Hunsucker</h6>
+    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+
+<h3 id="defining-brook-s-law">Defining Brook&rsquo;s Law</h3>
+
+<p>Frederick P. Brooks Jr.&rsquo;s <em>The Mythical Man-Month</em> <sup class="footnote-ref" id="fnref:mmm"><a href="#fn:mmm">1</a></sup> introduced the concept of Brook&rsquo;s Law:</p>
+
+<blockquote>
+<p>Adding manpower to a late software project makes it later.</p>
+</blockquote>
+
+<p>Today, this is has become a cliché in software engineering. Projects slip, the first solution is to add more people – and the first counterpoint is Brook&rsquo;s Law.</p>
+
+<p>This post will approach the topic from a mathematical perspective, by using equations to model real-life behaviors. This is to say, it&rsquo;s a vast oversimplfication. The project presented, can be thought of as a Widget Factory, trying to determine whether to add staff, in order to deliver an order of 100 Widgets sooner than the current staff can.</p>
+
+<div id="futile-chartContainer"></div>
+
+<form id="futile">
+    <fieldset>
+        <legend>Baseline vs Additional Staff</legend>
+        <div>
+            <label for="futile-additionalStaff">Additional staff</label>: <input id="futile-additionalStaff" type="range" name="additionalStaff" min="0" max="10" value="1" step="1"></input>
+        </div>
+    </fieldset>
+    <script type="module">
+        import { InputSet, InputProvider } from '/js/state.js';
+        import { Project, ChartJsIllustrator } from './modeling.js';
+
+        (new InputSet(InputProvider.manyFromSelector("#futile-additionalStaff"))).dispatchTo((values) => {
+            var project = (new Project(values)).withVariance({remainingWork: 100});
+            var worstCase = project.withVariance({additionalStaff: 10});
+            (new ChartJsIllustrator(document.getElementById("futile-chartContainer"))).draw(project, worstCase);
+        });
+    </script>
+</form>
+
+<p>Counter to intuition, adding someone to the project doesn&rsquo;t result in an immediate increase in the project&rsquo;s velocity. This effect is primarily attributed to unforeseen variables <sup class="footnote-ref" id="fnref:interview"><a href="#fn:interview">2</a></sup>:</p>
+
+<ul>
+<li>repartitioning of responsibilities and work breakdown</li>
+<li>new folks need time to get acquainted to making Widgets</li>
+<li>bringing someone up to speed, temporarily slows down other folks making making Widgets</li>
+<li>more people to communicate with</li>
+</ul>
+
+<p>The more familiar the new folks are to the project, the less time will be necessary assimilating them. If we could hand-wave away assimilation costs, then projects and staffing would behave simply:</p>
+
+<div id="zeroAssimilationTime-chartContainer"></div>
+
+<form id="zeroAssimilationTime">
+    <fieldset>
+        <legend>Zero assimilation time</legend>
+        <div>
+            <label for="zeroAssimilationTime-additionalStaff">Additional staff</label>: <input id="zeroAssimilationTime-additionalStaff" type="range" name="additionalStaff" min="0" max="10" value="3" step="1"></input>
+        </div>
+    </fieldset>
+    <script type="module">
+        import { InputSet, InputProvider } from '/js/state.js';
+        import { Project, ChartJsIllustrator } from './modeling.js';
+
+        (new InputSet(InputProvider.manyFromSelector("#zeroAssimilationTime-additionalStaff"))).dispatchTo((values) => {
+            var project = (new Project(values)).withVariance({remainingWork: 100, assimilationTime: 0});
+            var worstCase = project.withVariance({additionalStaff: 0});
+            (new ChartJsIllustrator(document.getElementById("zeroAssimilationTime-chartContainer"))).draw(project, worstCase);
+        });
+    </script>
+</form>
+
+<p>Ignoring assimilation, we get simple behavior: more people means finishing sooner. This is unrealistic, since even the simplest jobs require training. Projects, as a whole, aren&rsquo;t doomed though. Brook&rsquo;s Law says nothing about projects that are on-time.</p>
+
+<h3 id="a-mathematical-expression">A Mathematical Expression</h3>
+
+<p>When a project&rsquo;s timeline is substantially longer than assimilation time, the completion date can be accelerated by adding staff. <em>A Mathematical Expression of Brook&rsquo;s Law</em>, Stutzke, 1995 <sup class="footnote-ref" id="fnref:stutzke"><a href="#fn:stutzke">3</a></sup>, provides equations that model Brook&rsquo;s Law behavior, and offers up four strategies for working around Brook&rsquo;s Law: cut scope, add time, work overtime, add people. In this post, we&rsquo;ll be trying to determine when adding people is an effective strategy. The paper is presents under the following
+conditions:</p>
+
+<ul>
+<li>No serious, unresolved problems, eg. volatile requirements</li>
+<li>Remaining work is enumerated and well understood</li>
+<li>All new people are:
+
+<ul>
+<li>Added at the same time</li>
+<li>Assigned a mentor</li>
+<li>Mentorship is spread evenly across the team</li>
+<li>Focused on this project only</li>
+<li>Willing to accept existing process and structure as-is, eg. no rebuilding the factory</li>
+</ul></li>
+<li>Communication costs do not grow with the number of people</li>
+</ul>
+
+<p>The paper addresses the special case of a project that is well underway, whose schedule needs to be accelerated. Under this model, the optimistic and realistic cases are unified:</p>
+
+<div id="longHorizon-chartContainer"></div>
+
+<form id="longHorizon">
+    <fieldset>
+        <legend>Long horizon</legend>
+        <div>
+            <label for="longHorizon-additionalStaff">Additional staff</label>: <input id="longHorizon-additionalStaff" type="range" name="additionalStaff" min="0" max="10" value="10" step="1"></input>
+        </div>
+    </fieldset>
+    <script type="module">
+        import { InputSet, InputProvider } from '/js/state.js';
+        import { Project, ChartJsIllustrator } from './modeling.js';
+
+        (new InputSet(InputProvider.manyFromSelector("#longHorizon-additionalStaff"))).dispatchTo((values) => {
+            var project = (new Project(values)).withVariance({remainingWork: 500, assimilationTime: 20, assimilationEffort: 0.5});
+            var worstCase = project.withVariance({additionalStaff: 0});
+            (new ChartJsIllustrator(document.getElementById("longHorizon-chartContainer"))).draw(project, worstCase);
+        });
+    </script>
+</form>
+
+<p>Initially, the productivity drops, reflecting effort and time bringing on new staff. After a four week assimilation period, productivity ticks back up, reflecting the gain from additional staff. Assimilation time has been arbitrarily set to four weeks, and assimilation effort (portion of existing staff&rsquo;s time spent onboarding new folks) to 50%. Under these parameters, an inflection point occurs at Day 35, where the best strategy flips from &ldquo;keep staffing as-is&rdquo; to &ldquo;more staff means faster timeline&rdquo;.</p>
+
+<h3 id="application">Application</h3>
+
+<p>Mathematical models necessarily ignore the real world&rsquo;s intricate complexities. Applying this information to your own projects will require hedging this project&rsquo;s decisions within it related constraints, eg.:</p>
+
+<ul>
+<li>Where will the additional staff come from? New hires, other teams? What are the costs induced there?</li>
+<li>What will they do once this project is complete?</li>
+<li>Does it make sense to spend effort through a project, aimed at reducing assimilation time/effort (eg. writing code comments, documenting norms, etc), or can you rely on homogenous knowledge and skill across your staff or industry, to make up for it?</li>
+</ul>
+
+<p>Many questions remain unanswered, depending on each project&rsquo;s individual constraints and environment, but hopefully, these visualizations provide a stronger mental model to intuit from.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:mmm">I&rsquo;m reading from the 20th anniversary addition, ISBN 0-201-83595-9, published in 1995.
+ <a class="footnote-return" href="#fnref:mmm"><sup>[return]</sup></a></li>
+<li id="fn:interview">See <a href="https://cs.calvin.edu/courses/cs/262/kvlinden/references/brooksInterview.html">https://cs.calvin.edu/courses/cs/262/kvlinden/references/brooksInterview.html</a>
+ <a class="footnote-return" href="#fnref:interview"><sup>[return]</sup></a></li>
+<li id="fn:stutzke">Presented at the Ninth International Forum on COCOMO and Cost Modeling, October 7th 1994
+ <a class="footnote-return" href="#fnref:stutzke"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+    <hr>
+    <nav class="main">
+  <ul>
+    
+      <li><a href="/" title="">Posts</a></li>
+      <li><a href="/projects" title="">Projects</a></li></ul>
+</nav>
+
+  </div>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10136968-8', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

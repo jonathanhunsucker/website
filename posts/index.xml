@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Jonathan Hunsucker</title>
+    <link>https://jonathanhunsucker.com/posts/</link>
+    <description>Recent content in Posts on Jonathan Hunsucker</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 31 May 2020 04:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jonathanhunsucker.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Visualizing COVID-19 new cases daily</title>
+      <link>https://jonathanhunsucker.com/posts/visualizing-covid19-new-cases-daily/</link>
+      <pubDate>Sun, 31 May 2020 04:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/visualizing-covid19-new-cases-daily/</guid>
+      <description>Everyone is reacting COVID-19 in their own way. My own reaction is inconsistent. Some days, I&amp;rsquo;m alright with going on a run without a mask, and other days, I&amp;rsquo;d prefer to stay in. The dissonance and stress has drive me to dig into case count figures myself. Building is my coping strategy. It hasn&amp;rsquo;t given me solace, but the flickering sense of autonomy helps.
+One artifact I&amp;rsquo;d like to share is a graph of the rolling 7 day average of new cases daily.</description>
+    </item>
+    
+    <item>
+      <title>Amtrak Acela On-time Probability Distribution</title>
+      <link>https://jonathanhunsucker.com/posts/amtrak-acela-on-time-probability-distribution/</link>
+      <pubDate>Tue, 03 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/amtrak-acela-on-time-probability-distribution/</guid>
+      <description>Update: This work was extended into a stand-alone website containing all trains&amp;rsquo; arrival time probability distributions.
+ Over the last 13 years, John G. Bobinyec has been gathering individual train status information, recording it, and sharing it with the world at dixielandsoftware.net/Amtrak/status/StatusPages/. They maintain up-to-date timetables of trains past arrived and currently en route, along with faux Solari departure boards.
+Numbered zip files are tucked away in the corner. To better understand Amtrak&amp;rsquo;s reported On-time Performance, I dug into a single train&amp;rsquo;s record for 2018.</description>
+    </item>
+    
+    <item>
+      <title>Biking the Silver Comet: Atlanta to Alabama</title>
+      <link>https://jonathanhunsucker.com/posts/biking-the-silver-comet-atlanta-to-alabama/</link>
+      <pubDate>Fri, 20 Sep 2019 23:02:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/biking-the-silver-comet-atlanta-to-alabama/</guid>
+      <description>Saturday morning, I woke up to see the bicycle in the living room, prepped. The previous night&amp;rsquo;s packing list was short: repair kit, hammock and tarp, sleeping bag liner, spare shirt, rain coat, towel and soap, phone charger, spare battery, camera. The gear totaled 15lbs. I was ready to go.
+Route The route was 73 miles in total, east to west:
+ Atlanta, mile -12 Symrna, mile 0 Powder Springs, mile 12 Cedartown, mile 35 Rockmart, mile 51 Esom Hill trailhead, mile 61  Preparation Time allocation Before diving in head first, I ran a few trial rides: Dunwoody to Atlanta (twice), a 50 mile loop Atlanta to Decatur to Stone Mountain and back.</description>
+    </item>
+    
+    <item>
+      <title>Reviving Boomclap: A five year old Javascript project</title>
+      <link>https://jonathanhunsucker.com/posts/reviving-boomclap/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/reviving-boomclap/</guid>
+      <description>Boomclap is an in-browser sampler and sequencer written a few years back, and since fallen to the wayside.
+Stats Size: 933 lines of code 1, 4 files 2
+Age: 5 years since original build, 2 years since last known working environment
+Dependencies: WebAudio API
+Cause of death It was hosted on a DigitalOcean box, along with a few other projects. Browsers began requiring HTTPS in order to access the WebAudio APIs.</description>
+    </item>
+    
+    <item>
+      <title>Brook&#39;s Law</title>
+      <link>https://jonathanhunsucker.com/posts/brooks-law/</link>
+      <pubDate>Wed, 29 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/brooks-law/</guid>
+      <description>Defining Brook&amp;rsquo;s Law Frederick P. Brooks Jr.&amp;rsquo;s The Mythical Man-Month 1 introduced the concept of Brook&amp;rsquo;s Law:
+ Adding manpower to a late software project makes it later.
+ Today, this is has become a cliché in software engineering. Projects slip, the first solution is to add more people – and the first counterpoint is Brook&amp;rsquo;s Law.
+This post will approach the topic from a mathematical perspective, by using equations to model real-life behaviors.</description>
+    </item>
+    
+    <item>
+      <title>Birthday problem</title>
+      <link>https://jonathanhunsucker.com/posts/birthday-problem/</link>
+      <pubDate>Sun, 12 May 2019 23:02:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/birthday-problem/</guid>
+      <description>The birthday problem is as follows:
+ How many people must be in the same room to make it likely that somebody shares a birthday?1
+ We&amp;rsquo;ll capture this problem as Pb(n) = P(two or more people in room with n-many people, share a birthday).
+First step Out the gate, let&amp;rsquo;s take the complement of Pb(n):
+ Pb(n) = 1 - P(no people share a birthday) = 1 - Pnb(n)</description>
+    </item>
+    
+    <item>
+      <title>Visual understanding of sum from 1 to n</title>
+      <link>https://jonathanhunsucker.com/posts/sum-from-one-to-n/</link>
+      <pubDate>Sun, 12 May 2019 22:41:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/sum-from-one-to-n/</guid>
+      <description>The sum from one to n can be clarified visually. Below is a rectangle that&amp;rsquo;s n+1 cells wide and n cells tall. Half the cells are shaded in, representing the quantityn*(n+1)/2. As n grows by one, another row and colum is introduced, with the entire new column being shaded (accounting for the increment).</description>
+    </item>
+    
+    <item>
+      <title>Visual understanding of the Pythangorean theorem</title>
+      <link>https://jonathanhunsucker.com/posts/visual-understanding-pythagorean-theorem/</link>
+      <pubDate>Sun, 12 May 2019 22:33:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/visual-understanding-pythagorean-theorem/</guid>
+      <description>The Pythagorean theorem can be derived visually, from the following diagram, constructed by drawing:
+ A right triangle with bases a and b, forming hypotenuse c Three squares: one from each of the triangle&amp;rsquo;s sides One last square, with side length a+b, surrounding the c-length square  With this in place, we can see that the area of the last square is (a+b)^2, which consists of the c-length square, and four right triangles with sides a and b.</description>
+    </item>
+    
+    <item>
+      <title>Eleven Formulations of the Quadratic Formulas</title>
+      <link>https://jonathanhunsucker.com/posts/eleven-formulations-quadratic-equation/</link>
+      <pubDate>Sun, 12 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/eleven-formulations-quadratic-equation/</guid>
+      <description>Aim Find a short and simple formulation of the quadratic formula. I made multiple attempts at formulation throughout a day, and catalogued the changes made between them.
+Learnings Coming up with tidy formulations is a progression. There are multiple paths, all with the same outcome (the quadratic formula), but with different amounts of clarity, self-explanation, and ease of following along. Later formulations were shorter or involved less algebraic shuffling to settle out, but traded away clarity to achieve it.</description>
+    </item>
+    
+    <item>
+      <title>Characterizing Feedback Loops</title>
+      <link>https://jonathanhunsucker.com/posts/characterizing-feedback-loops/</link>
+      <pubDate>Wed, 08 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/characterizing-feedback-loops/</guid>
+      <description>&amp;ldquo;Positive&amp;rdquo; and &amp;ldquo;negative&amp;rdquo; terminology is ambiguous and causes misunderstanding. People use these terms to convey meaning both about the loop&amp;rsquo;s:
+ valence, eg. is the outcome generally good or bad? growth behavior, eg. as you go around the loop, is its effect ever-growing or diminishing?  Problem Consider the conversation:
+ Alice: &amp;ldquo;A bank run is a positive feedback.&amp;rdquo;
+Bob: &amp;ldquo;No, bank runs are bad, so it&amp;rsquo;s a negative feedback loop!</description>
+    </item>
+    
+    <item>
+      <title>Solving Snake Puzzle</title>
+      <link>https://jonathanhunsucker.com/posts/solving-snake-puzzle/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/solving-snake-puzzle/</guid>
+      <description>The snake puzzle consists of 27 blocks, held together by an elastic string threaded through holes in each of the blocks. Some blocks have a straight hole connecting one side to the opposite. Some blocks have holes connecting one side to an adjacent side, creating a bend. The challenge of the puzzle, is to orient the blocks so that they form a cube, three blocks tall.
+Finding an approach After many hours toying around with it, I began to adopt a simple approach:</description>
+    </item>
+    
+    <item>
+      <title>Utility of Scatter Plots</title>
+      <link>https://jonathanhunsucker.com/posts/scatter-plots/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/scatter-plots/</guid>
+      <description> Choosing one option is difficult when options widely vary on many different axes. Scatter plots can help in approaching a decision, as a quick tool for comparing options.
+Why is it useful?  Choosing qualities is easier than choosing an option Engages visual understanding, eg. clusters indicate options&amp;rsquo; similarity Expresses what you&amp;rsquo;d otherwise describe verbosely  Steps  Start with a handful of options, these will be the points List at least two qualities you can measure these options against Pick one quality to be the horizontal axis Order the options relative to one another Pick another quality for the vertical axis, and rank the options relatively again  Examples  Transportation modes, cost and time What to build next, effort and value  </description>
+    </item>
+    
+    <item>
+      <title>The Fire Next Time</title>
+      <link>https://jonathanhunsucker.com/posts/fire-next-time/</link>
+      <pubDate>Wed, 09 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/fire-next-time/</guid>
+      <description>James Baldwin&amp;rsquo;s 1962 book is damn good. Two portions stood out to me.
+ To defend oneself against a fear is simply to insure that one will, one day, be conquered by it; fears must be faced. As for one&amp;rsquo;s wits, it is just not true that one can live by them — not, that is, if one really wishes to live.
+Page 27
+ Part of his argument is that the American dream is fragile and false because it goes unexamined.</description>
+    </item>
+    
+    <item>
+      <title>How to Solve It: Progress and achievement</title>
+      <link>https://jonathanhunsucker.com/posts/how-to-solve-it-progress-and-achievement/</link>
+      <pubDate>Tue, 07 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/how-to-solve-it-progress-and-achievement/</guid>
+      <description>How to Solve It by G. Polya was published in 1945, providing a breakdown of the problem solving process and handy tools for each subprocess. It&amp;rsquo;s divided into four sections, one of which is a &amp;ldquo;short dictionary of heuristic&amp;rdquo; for solving problems. One of these heuristic definitions stood out to me, &amp;ldquo;Progress and achievement&amp;rdquo; page 157, because it put in words the tactics I find myself using without having enumerated them before.</description>
+    </item>
+    
+    <item>
+      <title>Tim Keane on being intentional</title>
+      <link>https://jonathanhunsucker.com/posts/tim-keane-on-being-intentional/</link>
+      <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/tim-keane-on-being-intentional/</guid>
+      <description>Tim Keane is the Commissioner of City Planning for the City of Atlanta. He gave a talk on being intentional at Creative Mornings ATL on Friday, July 27th, 2018. Here&amp;rsquo;s my notes. They lack a cohesive point, but nonetheless are interesting because Keane&amp;rsquo;s ideas for how city should be planned, are new for Atlantans. Quotations are paraphrased.
+He&amp;rsquo;s trying to find new ways to do this work. There were times when cities were designed.</description>
+    </item>
+    
+    <item>
+      <title>Boomclap: A Sampler/Sequencer using Web Audio API</title>
+      <link>https://jonathanhunsucker.com/posts/boomclap/</link>
+      <pubDate>Sat, 25 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/boomclap/</guid>
+      <description>Boomclap is a sampler and sequencer built using the Web Audio API. It&amp;rsquo;s very crude. The next beat is scheduled with setTimeout, and the Web Audio API Node graph is built on every beat. It&amp;rsquo;s a fun toy to play around with.
+Sampling interface The window shows the last few seconds of microphone audio. Freeze the window, crop the sample, and save it to the sequencer.
+Sequencing interface The sequencing grid has a row for each sample, and a column for each 16th beat in one bar.</description>
+    </item>
+    
+    <item>
+      <title>Flip: A Spacial Puzzle</title>
+      <link>https://jonathanhunsucker.com/posts/flip-puzzle-game/</link>
+      <pubDate>Fri, 24 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/flip-puzzle-game/</guid>
+      <description>Flip is a puzzle game created by a friend of mine, and brought to life during a hackathon. The goal is to fill the board, which is a grid of cells. Each cell is filled, highlighted, or unfilled. Game play starts with one cell filled. Take a turn, by highlighting filled cells and flipping them over their side — filling more cells. Fill the board in few enough turns, to complete that level.</description>
+    </item>
+    
+    <item>
+      <title>Spring 2015 Post-mortem</title>
+      <link>https://jonathanhunsucker.com/posts/spring-2015-post-mortem/</link>
+      <pubDate>Sun, 03 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/spring-2015-post-mortem/</guid>
+      <description>Preface I attend Georgia Tech as an undergrad computer science student. This is a post about the courses I took this semester. It was not my best semester, so this is for me to reflect and others to hopefully learn from it.
+Classes I will be taking each class on it own, but here is quick list: CS3251 Networking I, CS3630 Intro Perception &amp;amp; Robotics, CS4641 Machine Learning, MATH3215 Prob &amp;amp; Stat, and PSYC2220 Industrial Organizational Psychology.</description>
+    </item>
+    
+    <item>
+      <title>Variable functions are stupid and fun</title>
+      <link>https://jonathanhunsucker.com/posts/variable-functions/</link>
+      <pubDate>Mon, 23 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/variable-functions/</guid>
+      <description>Preface PHP was my first scripting language. For better or worse, it&amp;rsquo;s been my most comfortable language since 2008 (7 years ago at time of writting). As a result, it&amp;rsquo;s influenced how I write in other languages.
+Variable variableness by example In PHP, there&amp;rsquo;s dedicated syntax for calling class methods by name. Here&amp;rsquo;s a trivial example:
+class Dog { public function bark() { print &amp;quot;Woof!\n&amp;quot;; } public function sit() { print &amp;quot;Cool\n&amp;quot;; } } $dog = new Dog(); $commands = array(&#39;bark&#39;, &#39;sit&#39;); foreach ($commands as $command) { $dog-&amp;gt;{$command}(); }  In Python, the syntax isn&amp;rsquo;t on hand, but getattr can act similarly.</description>
+    </item>
+    
+    <item>
+      <title>Loopback</title>
+      <link>https://jonathanhunsucker.com/posts/loopback/</link>
+      <pubDate>Wed, 18 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/loopback/</guid>
+      <description>I just made Loopback, a website that plays your microphone audio back to you.
+Where I live, it&amp;rsquo;s frowned upon to open your window, because A/C costs and the like. However, I really enjoy hearing the noise of outside, so I set up a microphone outside my window, wired it under the window sill, and have Loopback running on my desktop. 450% volume is a good level, and it accompanies ambient music well.</description>
+    </item>
+    
+    <item>
+      <title>Issue tracking for a team of 1</title>
+      <link>https://jonathanhunsucker.com/posts/issue-tracking-for-team-of-one/</link>
+      <pubDate>Sat, 31 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/issue-tracking-for-team-of-one/</guid>
+      <description>Preface I make Lateplate App, a tiny SaaS, as mentioned before. People don&amp;rsquo;t often ask for features, but luckily, enough things come to mind to cause contention for what is implemented next.
+My process No matter how small the team, some process for tracking what to do next will exist. Either it&amp;rsquo;s stream of thought and you&amp;rsquo;re able to write software quicker than you can forget, or you&amp;rsquo;ve got so many incoming requests that some issues have been seen only by the requester.</description>
+    </item>
+    
+    <item>
+      <title>Atomic Deploys for PHP</title>
+      <link>https://jonathanhunsucker.com/posts/atomic-deploys-for-php/</link>
+      <pubDate>Mon, 26 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/atomic-deploys-for-php/</guid>
+      <description>Preface I make Lateplate App, a tiny web app for requesting to-go boxes for when you miss a meal because of a test or meeting (it&amp;rsquo;s tiny because there were only 142 people visit in the last month). It&amp;rsquo;s not making gobs of cash, so I don&amp;rsquo;t call it a business. It&amp;rsquo;s more of a very nerdy hobby. A very nerdy hobby that lets me grapple with real problems of making a web product, without having to be employeed at a company with those problems.</description>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://jonathanhunsucker.com/posts/hello-world/</link>
+      <pubDate>Mon, 03 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://jonathanhunsucker.com/posts/hello-world/</guid>
+      <description>Here are some things I&amp;rsquo;ve work on.
+Boomclap In-browser microphone sampler and beat pad for playback. Make silly repeating beats out of whatever noises you can make.
+North Pocket compass web page. Uses experimental DeviceOrientationEvents API, and offline application caching.
+Watson Listens to your Dropbox account to curate photos (filtering out blurry and duplicates), and provide searching by location and time.
+Risky Game Knock-off of the classic board game, Risk, for CS2340.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="author" content="Jonathan Hunsucker" />
+    
+    <link rel="stylesheet" type="text/css" href="https://jonathanhunsucker.com/style.min.d9fe226251cfc02a8739f8eacbaaafc0b9e27b93130d2d14a6c6ad0624924b42.css" />
+    <title>Reviving Boomclap: A five year old Javascript project - Jonathan Hunsucker</title>
+  </head>
+  <body>
+    
+  <div class="container--column">
+    <p>← <a href="/">Home</a></p>
+    <h1>Reviving Boomclap: A five year old Javascript project</h1>
+    <h6>On <time datetime="2019-06-02">June 2, 2019</time> by Jonathan Hunsucker</h6>
+    
+
+<p><a href="https://boomclap.jonathanhunsucker.com">Boomclap</a> is an in-browser sampler and sequencer written a few years back, and since fallen to the wayside.</p>
+
+<h3 id="stats">Stats</h3>
+
+<p>Size: 933 lines of code <sup class="footnote-ref" id="fnref:loc"><a href="#fn:loc">1</a></sup>, 4 files <sup class="footnote-ref" id="fnref:files"><a href="#fn:files">2</a></sup><br />
+Age: 5 years since original build, 2 years since last known working environment<br />
+Dependencies: WebAudio API</p>
+
+<h3 id="cause-of-death">Cause of death</h3>
+
+<p>It was hosted on a DigitalOcean box, along with a few other projects. Browsers began requiring HTTPS in order to access the WebAudio APIs. At the time, I didn’t know of any free/cheap SSL certificate authorities, so I let the project fall to the wayside.</p>
+
+<h3 id="approach-to-reviving">Approach to reviving</h3>
+
+<ol>
+<li>Run it locally</li>
+<li>Host it elsewhere</li>
+<li>Fix lingering bugs from years of browser API changes</li>
+</ol>
+
+<h4 id="running-it-locally">Running it locally</h4>
+
+<p>It’s a static site, so I opted for <code>python -m SimpleHTTPServer</code>. It needed a HTTPS transport though, which required wrapping the HTTPD socket in an SSL wrapper<sup class="footnote-ref" id="fnref:httpd-ssl-python"><a href="#fn:httpd-ssl-python">3</a></sup>.</p>
+
+<h4 id="host-it-elsewhere">Host it elsewhere</h4>
+
+<p>GitHub Pages now support HTTPS so I gave the project a CNAME, <code>boomclap.jonathanhunsucker.com</code>, and awaited the SSL certificate to be issued. For simplicity of branch management, I swapped the Pages branch to <code>master</code> from <code>gh-pages</code> and deleted <code>gh-pages</code>. This trades away one possible facility for a staging/preprod environment (eg. <code>master</code> as staging), but this project doesn’t warrant multi-environment testing right now, so that seemed like a fair trade off.</p>
+
+<h4 id="fix-lingering-bugs">Fix lingering bugs</h4>
+
+<p>In Chrome, it worked out of the box. On iOS 12.2 Safari, it displayed as an empty page. This was due to the lack of <code>navigator.getUserMedia()</code>, which was remidied by <a href="https://github.com/jonathanhunsucker/boomclap/commit/ad314fcafd6b66e6e33f760e79c3cc02d0a189bc">porting over</a> to <code>navigator.mediaDevices.getUserMedia()</code>.</p>
+
+<h4 id="additional-nice-to-have-changes">Additional nice-to-have changes</h4>
+
+<ul>
+<li>Constrained viewport to adapt to mobile (<a href="https://github.com/jonathanhunsucker/boomclap/commit/f83430ca19923900ceb6fdf8bb897c4bdcfc1e47">commit</a>)</li>
+<li>Added support for touch-based events (<a href="https://github.com/jonathanhunsucker/boomclap/commit/49a9b037501e5d1bef70f3e8f7d708df7923abc1">commit</a> and <a href="https://github.com/jonathanhunsucker/boomclap/commit/0e85accc35223e83f2a5a22782874aa0d9ffe4c0">fix</a>)</li>
+</ul>
+
+<h3 id="what-s-improved-over-the-last-five-years">What’s improved over the last five years</h3>
+
+<ul>
+<li>Hosting for static sites has vastly simplified</li>
+<li>SSL is standard and free</li>
+<li>Promises are part of the mainstream browser APIs</li>
+</ul>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:loc"><code>find . -name *.js -o -name *.html -o -name .css | xargs wc -l</code>
+ <a class="footnote-return" href="#fnref:loc"><sup>[return]</sup></a></li>
+<li id="fn:files"><code>find . -name *.js -o -name *.html -o -name .css | wc -l</code>
+ <a class="footnote-return" href="#fnref:files"><sup>[return]</sup></a></li>
+<li id="fn:httpd-ssl-python"><a href="https://gist.github.com/dergachev/7028596">https://gist.github.com/dergachev/7028596</a>
+ <a class="footnote-return" href="#fnref:httpd-ssl-python"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+    <hr>
+    <nav class="main">
+  <ul>
+    
+      <li><a href="/" title="">Posts</a></li>
+      <li><a href="/projects" title="">Projects</a></li></ul>
+</nav>
+
+  </div>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10136968-8', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

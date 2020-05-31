@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="author" content="Jonathan Hunsucker" />
+    
+    <link rel="stylesheet" type="text/css" href="https://jonathanhunsucker.com/style.min.d9fe226251cfc02a8739f8eacbaaafc0b9e27b93130d2d14a6c6ad0624924b42.css" />
+    <title>Variable functions are stupid and fun - Jonathan Hunsucker</title>
+  </head>
+  <body>
+    
+  <div class="container--column">
+    <p>← <a href="/">Home</a></p>
+    <h1>Variable functions are stupid and fun</h1>
+    <h6>On <time datetime="2015-03-23">March 23, 2015</time> by Jonathan Hunsucker</h6>
+    
+
+<h4 id="preface">Preface</h4>
+
+<p>PHP was my first scripting language. For better or worse, it&rsquo;s been my most comfortable language since 2008 (7 years ago at time of writting). As a result, it&rsquo;s influenced how I write in other languages.</p>
+
+<h3 id="variable-variableness-by-example">Variable variableness by example</h3>
+
+<p>In PHP, there&rsquo;s dedicated syntax for calling class methods by name. Here&rsquo;s a trivial example:</p>
+
+<pre><code class="language-php">class Dog {
+    public function bark() {
+        print &quot;Woof!\n&quot;;
+    }
+    public function sit() {
+        print &quot;Cool\n&quot;;
+    }
+}
+
+$dog = new Dog();
+$commands = array('bark', 'sit');
+
+foreach ($commands as $command) {
+    $dog-&gt;{$command}();
+}
+</code></pre>
+
+<p>In Python, the syntax isn&rsquo;t on hand, but <code>getattr</code> can act similarly.</p>
+
+<pre><code class="language-python">class Dog:
+    def bark(self):
+        print &quot;Woof!\n&quot;
+
+    def sit(self):
+        print &quot;Cool\n&quot;
+
+dog = Dog()
+commands = ['bark', 'sit']
+
+for command in commands:
+    getattr(dog, command)()
+</code></pre>
+
+<p>In Javascript, I don&rsquo;t know of a name for it. It seems like a natural product of how the language works.</p>
+
+<pre><code class="language-javascript">function Dog() {}
+Dog.prototype.bark = function () {
+    console.log('Woof!');
+};
+Dog.prototype.sit = function () {
+    console.log('Cool');
+};
+
+var dog = new Dog();
+var commands = ['bark', 'sit'];
+
+for (var i in commands) {
+    var command = commands[i];
+    dog[command]();
+}
+</code></pre>
+
+<h4 id="stupid">Stupid</h4>
+
+<p>A lot of trust is required here. The methods have to exist, and static code analysis often won&rsquo;t detect when they don&rsquo;t. A misspelling kills the program.</p>
+
+<h4 id="fun">Fun</h4>
+
+<p>The alternative is checking for possible command, then invoking the appropriate method. When the number of commands becomes very large, a big switch or lots of if/elseifs becomes cumbersome.</p>
+
+<h3 id="becoming-smart-and-boring">Becoming smart and boring</h3>
+
+<p>Reeling in the danger is pretty simple: check for errors. In the case of PHP and Javascript, add checks before invoking the method. In Python, <code>getattr</code> throws an <code>AttributeError</code> when the attribute doesn&rsquo;t exist. Handle the exceptional case with a safe default, an error page, or safe self destruction.</p>
+
+<h4 id="an-example-from-mancala">An example from Mancala</h4>
+
+<p>I used this dynamic invocation trick on <a href="https://github.com/jonathanhunsucker/mancala/">Mancala</a>, a service for playing the board game via SMS. Game play consisted of texting a command, like <code>start</code>, the letter for the position you want to play, or <code>reset</code> to quit. If <code>getattr</code> threw up, then the service simply replied &lsquo;Invalid move&rsquo; and quit.</p>
+
+<pre><code class="language-php">try:
+    getattr(self, command)()
+except AttributeError:
+    self.message = &quot;Invalid move&quot;
+</code></pre>
+
+    <hr>
+    <nav class="main">
+  <ul>
+    
+      <li><a href="/" title="">Posts</a></li>
+      <li><a href="/projects" title="">Projects</a></li></ul>
+</nav>
+
+  </div>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10136968-8', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>
