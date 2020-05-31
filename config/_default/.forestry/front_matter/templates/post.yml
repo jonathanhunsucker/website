@@ -8,3 +8,5 @@ fields:
 - type: datetime
   name: publishDate
   label: publishDate
+pages:
+- content/posts/visualizing-covid-19-new-cases-daily.md
